@@ -1,0 +1,17 @@
+export const MAPPED_TIMEZONES: { [key: string]: string } = {
+  'Etc/GMT+12': 'UTC',
+  'Etc/GMT+11': 'UTC',
+  'Etc/GMT+9': 'UTC',
+  'Etc/GMT+8': 'UTC',
+  'America/Indianapolis': 'America/Indiana/Indianapolis',
+  'America/Buenos_Aires': 'America/Argentina/Buenos_Aires',
+  'Etc/GMT+2': 'UTC',
+  'America/Godthab': 'UTC',
+  UTC: 'UTC',
+  'Europe/Kiev': 'Europe/Kyiv',
+  'Asia/Calcutta': 'Asia/Kolkata',
+  'Asia/Katmandu': 'Asia/Kathmandu',
+  'Asia/Rangoon': 'Asia/Yangon',
+  'Etc/GMT-12': 'UTC',
+  'Etc/GMT-13': 'UTC',
+};

@@ -1,0 +1,119 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BookingSummaryComponent should compile 1`] = `
+<ds-booking-summary
+  icons={[Function Object]}
+  isMobileView$={[Function _Store]}
+  saveBookingPending$={[Function _Store]}
+  selectCallType$={[Function _Store]}
+  selectCallTypeIcon$={[Function _Store]}
+  selectCallTypeSummary$={[Function _Store]}
+  selectedDay$={[Function _Store]}
+  selectedTimeSlot$={[Function _Store]}
+  store={[Function _MockStore]}
+>
+  <ds-booking-info>
+    <div
+      class="flex flex-row justify-start mt-5"
+    >
+      <div
+        class="ml-3 flex flex-col flex-start"
+      >
+        <h4
+          class="text-neutral-n500 font-medium text-left"
+        >
+        </h4>
+        <p
+          class="text-sm mt-2 text-neutral-n300 text-left"
+        >
+        </p>
+      </div>
+    </div>
+  </ds-booking-info><ds-booking-info>
+    <div
+      class="flex flex-row justify-start mt-5"
+    >
+      <div
+        class="w-12 h-12 bg-primary-p100 flex flex-col justify-center items-center"
+      >
+        <ds-icon
+          title="BOOKING.BOOKING_SUMMARY.BOOKING_DATE_ICO"
+        >
+          <calendar-icon>
+            <svg
+              fill="none"
+              height="24"
+              style="height: 24px; width: 24px;"
+              viewBox="0 0 24 24"
+              width="24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                class="fill-primary-p300-main"
+                clip-rule="evenodd"
+                d="M17.3853 3V4.54101H22V21.227H2V4.54101H6.61475V3H8.15576V4.54101H15.8442V3H17.3853ZM3.54101 19.6943H20.459V6.07374H17.3853V7.61475H15.8525V6.07374H8.15576V7.61475H6.61475V6.07374H3.54101V19.6943ZM8.15576 11.1691H6.61475V12.7101H8.15576V11.1691ZM11.2295 11.1691H9.68848V12.7101H11.2295V11.1691ZM12.7705 11.1691H14.3115V12.7101H12.7705V11.1691ZM17.3853 14.2428H15.8442V15.7838H17.3853V14.2428ZM6.61475 14.2428H8.15576V15.7838H6.61475V14.2428ZM11.2295 14.2428H9.68848V15.7838H11.2295V14.2428ZM12.7705 14.2428H14.3115V15.7838H12.7705V14.2428ZM17.3853 11.1691H15.8442V12.7101H17.3853V11.1691Z"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </calendar-icon>
+        </ds-icon>
+      </div>
+      <div
+        class="ml-3 flex flex-col flex-start"
+      >
+        <h4
+          class="text-neutral-n500 font-medium text-left"
+        >
+        </h4>
+        <p
+          class="text-sm mt-2 text-neutral-n300 text-left"
+        >
+          BOOKING.BOOKING_SUMMARY.BOOKING_DATE_SUMMARY
+        </p>
+      </div>
+    </div>
+  </ds-booking-info><ds-booking-info>
+    <div
+      class="flex flex-row justify-start mt-5"
+    >
+      <div
+        class="w-12 h-12 bg-primary-p100 flex flex-col justify-center items-center"
+      >
+        <ds-icon
+          title="BOOKING.BOOKING_SUMMARY.BOOKING_TIMESLOT_ICO"
+        >
+          <clock-icon>
+            <svg
+              fill="none"
+              style="height: 24px; width: 24px;"
+              viewBox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                class="fill-primary-p300-main"
+                clip-rule="evenodd"
+                d="M0 10C0 4.47715 4.47715 0 10 0C12.6522 0 15.1957 1.05357 17.0711 2.92893C18.9464 4.8043 20 7.34784 20 10C20 15.5228 15.5228 20 10 20C4.47715 20 0 15.5228 0 10ZM16.0763 12.376V10.376H11V4H9V12.376H16.0763Z"
+                fill-rule="evenodd"
+                id="Mask"
+              />
+            </svg>
+          </clock-icon>
+        </ds-icon>
+      </div>
+      <div
+        class="ml-3 flex flex-col flex-start"
+      >
+        <h4
+          class="text-neutral-n500 font-medium text-left"
+        >
+        </h4>
+        <p
+          class="text-sm mt-2 text-neutral-n300 text-left"
+        >
+          BOOKING.BOOKING_SUMMARY.BOOKING_TIME_SUMMARY
+        </p>
+      </div>
+    </div>
+  </ds-booking-info>
+</ds-booking-summary>
+`;

@@ -1,0 +1,13 @@
+<div class="mt-4">
+  <h4 class="font-medium">{{ 'BOOKING.SELECT_BOOKING_TYPE' | translate }}</h4>
+  <div class="mt-5" [formGroup]="form" *ngIf="meetingTypes$ | async as meetingTypes">
+    <div
+      class="h-14 bg-neutral-n0 shadow-shadow-z100 flex flex-col justify-center mb-3 cursor-pointer"
+      *ngFor="let meetingType of meetingTypes"
+    >
+      <ds-radio [value]="meetingType.id" name="meetingtypradio" class="mx-3" formControlName="meetingType">
+        <ds-form-label>{{ 'BOOKING.CALL_TYPE.' + meetingType.id | translate }}</ds-form-label>
+      </ds-radio>
+    </div>
+  </div>
+</div>

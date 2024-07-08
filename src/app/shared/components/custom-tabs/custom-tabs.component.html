@@ -1,0 +1,17 @@
+<ol class="flex">
+  <div
+    *ngFor="let item of items"
+    class="hover:border-b-[3px] border-primary-p100 rounded-sm cursor-pointer"
+    [ngClass]="{ 'border-b-[3px] border-primary-p300-main rounded-sm': item.isSelected }"
+  >
+    <button
+      (click)="selectTab(item)"
+      class="text-base px-4 pb-2"
+      [ngClass]="{ 'text-primary-p300-main': item.isSelected }"
+    >
+      {{ item.title }}
+    </button>
+  </div>
+</ol>
+
+<ng-content> </ng-content>

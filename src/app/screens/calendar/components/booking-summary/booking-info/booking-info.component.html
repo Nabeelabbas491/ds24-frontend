@@ -1,0 +1,9 @@
+<div class="flex flex-row justify-start mt-5">
+  <div class="w-12 h-12 bg-primary-p100 flex flex-col justify-center items-center" *ngIf="iconName">
+    <ds-icon [name]="iconName" [color]="iconColors.Primary300" [size]="24" [title]="iconCaption"></ds-icon>
+  </div>
+  <div class="ml-3 flex flex-col flex-start">
+    <h4 class="text-neutral-n500 font-medium text-left">{{ value }}</h4>
+    <p class="text-sm mt-2 text-neutral-n300 text-left">{{ caption }}</p>
+  </div>
+</div>

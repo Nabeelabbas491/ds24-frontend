@@ -1,0 +1,14 @@
+<div class="flex flex-row flex-wrap justify-start bg-primary">
+  <div
+    class="flex flex-col justify-start items-center mobile-view:items-start mobile-view:ml-5 w-[56%] mobile-view:w-full"
+  >
+    <ds-booking-user-profile
+      *ngIf="(isMobileView$ | async) === false"
+      [bookingTemplateSummary]="bookingTemplateSummary$ | async"
+    ></ds-booking-user-profile>
+    <ds-booking-summary></ds-booking-summary>
+  </div>
+  <div class="w-[44%] mobile-view:w-full mobile-view:mt-5 bg-neutral-n0 p-5">
+    <ds-booking-form></ds-booking-form>
+  </div>
+</div>

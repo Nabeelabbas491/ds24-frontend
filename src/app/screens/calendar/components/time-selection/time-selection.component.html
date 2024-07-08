@@ -1,0 +1,40 @@
+<h4 class="font-medium">{{ 'BOOKING.SELECT_TIME' | translate }}</h4>
+<div class="mt-5" *ngIf="selectedDay$ | async as selectedDay">
+  <form [formGroup]="form">
+    <ds-select formControlName="timeZone" class="text-left">
+      <ds-select-filter></ds-select-filter>
+      <ds-form-label>{{ 'BOOKING.SELECT_TIME_ZONE' | translate }}</ds-form-label>
+      <ds-select-option *ngFor="let timezone of timeZones$ | async" [value]="timezone.name">{{
+        'TIMEZONES.' + timezone.name | translate
+      }}</ds-select-option>
+    </ds-select>
+  </form>
+  <h4 class="text-neutral-n500 mt-3 text-base">
+    {{ selectedDay?.dayMonthYearTitle | dateFormat: 'full_without_year' }}
+  </h4>
+  <ng-template #timeslotslist>
+    <div class="flex flex-row justify-start flex-wrap gap-3 mt-3" *ngIf="bookingTimeSlots$ | async as timeSlots">
+      <p *ngIf="!timeSlots || timeSlots.length === 0; else timeslots" class="text-neutral-n300">
+        {{ 'BOOKING.BOOKING_OTHER.NOT_AVAILABLE_AT_THIS_DATE' | translate }}
+      </p>
+      <ng-template #timeslots>
+        <ds-chip
+          [selectable]="true"
+          [size]="'default'"
+          [chipColor]="chipColor.LightPrimaryBlue"
+          [selected]="(selectedTimeSlot$ | async) === item"
+          (chipChange)="selectTimeSlot(item)"
+          *ngFor="let item of timeSlots"
+        >
+          <ds-chip-text class="w-20 text-center">{{ item.startTime }}</ds-chip-text>
+        </ds-chip>
+      </ng-template>
+    </div>
+  </ng-template>
+  <ds-spinner
+    [color]="spinnerColor"
+    class="mx-auto pl-6"
+    *ngIf="isBookingTimeSlotsPending$ | async; else timeslotslist"
+    [size]="50"
+  ></ds-spinner>
+</div>

@@ -1,0 +1,22 @@
+/* You can add global styles to this file, and also import other style files */
+@import 'tailwindcss/base';
+@import '@ds24/elements/typography';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+@import '@fontsource/roboto';
+@import '@fontsource/roboto/500.css';
+@import '@fontsource/inter';
+@import '@fontsource/inter/500.css';
+@import '@angular/cdk/overlay-prebuilt.css';
+
+// angular material is showing empty space for accessibility of mat-tooltip. Following css would hide it without screen reader issues.
+
+.cdk-visually-hidden {
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}

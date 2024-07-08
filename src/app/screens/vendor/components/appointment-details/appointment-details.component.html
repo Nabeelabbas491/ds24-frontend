@@ -1,0 +1,294 @@
+<ng-container *ngLet="isLoading$ | async as isLoading">
+  <div class="flex justify-center items-center min-h-128" *ngIf="isLoading; else detailsPage">
+    <ds-spinner [color]="spinnerColor" [size]="60"></ds-spinner>
+  </div>
+
+  <ng-template #detailsPage>
+    <div
+      class="mx-auto pt-4 border-t border-neutral-n200"
+      *ngLet="appoinmentDetailsData$ | async as appoinmentDetailsData"
+    >
+      <div
+        [matTooltip]="titleName"
+        [matTooltipPosition]="'above'"
+        matTooltipClass="bg-neutral-n500 text-xs text-neutral-50 rounded-md "
+      >
+        <ds-breadcrumb [items]="items" [addBottomMargin]="false"></ds-breadcrumb>
+      </div>
+
+      <h1 class="font-medium pt-2 pb-4 text-2xl">{{ 'VENDOR.DETAILS.APPOINTMENT_DETAILS' | translate }}</h1>
+
+      <div class="flex gap-4">
+        <div class="bg-white w-[30%] min-w-fit flex flex-col h-fit">
+          <div
+            class="p-4 py-6 flex justify-start gap-4 border-solid border-b border-b-neutral-200"
+            *ngIf="appoinmentDetailsData?.name"
+          >
+            <div
+              *ngIf="
+                appoinmentDetailsData?.bookingProduct?.productImageUrl === '' ||
+                  !appoinmentDetailsData?.bookingProduct?.productImageUrl;
+                else productPic
+              "
+            >
+              <img
+                class="h-14 w-14 object-cover rounded-full"
+                src="./../../../../../assets/images/avatar-blank.png"
+                [alt]="'VENDOR.AVATAR_ICON' | translate"
+              />
+            </div>
+
+            <ng-template #productPic>
+              <div>
+                <img
+                  class="h-14 w-14 object-cover rounded-full"
+                  [src]="appoinmentDetailsData?.bookingProduct?.productImageUrl"
+                  [alt]="'VENDOR.AVATAR_ICON' | translate"
+                />
+              </div>
+            </ng-template>
+
+            <div class="w-72">
+              <h2
+                class="text-xl lg:text-2xl truncate leading-normal"
+                [matTooltip]="titleName"
+                [matTooltipPosition]="'above'"
+                matTooltipClass="bg-neutral-n500 text-xs text-neutral-50 rounded-md "
+              >
+                {{ appoinmentDetailsData?.name }}
+              </h2>
+              <p
+                class="text-sm lg:text-base text-clip truncate"
+                [matTooltip]="productTitle"
+                [matTooltipPosition]="'above'"
+                matTooltipClass="bg-neutral-n500 text-xs text-neutral-50 rounded-md "
+              >
+                {{ appoinmentDetailsData?.bookingProduct?.productName }}
+              </p>
+            </div>
+          </div>
+
+          <div
+            class="p-4 py-6 flex justify-start border-solid border-b border-b-neutral-200"
+            *ngIf="appoinmentDetailsData?.date"
+          >
+            <div class="flex justify-center grayscale mr-6">
+              <ds-icon class="filter-grey" [name]="calendarIcon" [size]="34" [color]="iconColor"></ds-icon>
+            </div>
+
+            <div class="flex flex-col">
+              <h4 class="text-sm lg:text-base text-neutral-500">{{ 'VENDOR.APPOINTMENT' | translate }}</h4>
+              <p
+                *ngIf="this.appoinmentDetailsData?.status !== 'cancelled'; else meetingCancelled"
+                class="font-medium text-neutral-800 text-xl leading-8 pb-3"
+              >
+                {{ appoinmentDetailsData?.date | date: 'dd MMM, yyyy' }} |
+                {{ appoinmentDetailsData?.startTime }}
+                {{
+                  appoinmentDetailsData?.abbreviatedTimeZone
+                    ? appoinmentDetailsData?.abbreviatedTimeZone
+                    : appoinmentDetailsData?.timezone
+                }}
+              </p>
+              <ng-template #meetingCancelled>
+                <p class="font-medium lg:text-xl text-base">{{ 'VENDOR.DETAILS.MEETING_CANCELLED' | translate }}</p>
+              </ng-template>
+              <button
+                *ngIf="this.appoinmentDetailsData?.status !== 'cancelled'"
+                class="!bg-[#F44336] border-none max-w-fit shadow-shadow-z200 hover:shadow-shadow-z300 text-white disabled:text-danger-e200 disabled:border-0 disabled:bg-danger-e100 focus:outline-danger-e200 h-10 py-2 px-4 focus:outline-none disabled:shadow-none disabled:cursor-not-allowed tracking-wide rounded-xs border text-sm lg:text-base font-medium font-roboto focus:outline focus:outline-2 focus:outline-offset-2 hover:focus:outline hover:focus:outline-0"
+                (click)="toggleModalVisibility(true)"
+              >
+                {{ 'VENDOR.DETAILS.CANCEL' | translate }}
+              </button>
+            </div>
+          </div>
+
+          <div
+            class="p-4 py-6 flex justify-start border-solid border-b border-b-neutral-200"
+            *ngIf="appoinmentDetailsData?.note"
+          >
+            <div class="filter-grey w-14">
+              <img class="w-9 h-9" src="./../../../../../assets/images/faq.svg" [alt]="'VENDOR.FAQ_ICON' | translate" />
+            </div>
+
+            <div class="w-80">
+              <p class="text-sm lg:text-base text-neutral-500 whitespace-pre">
+                {{ 'VENDOR.DETAILS.CLIENT_NOTES' | translate }}
+              </p>
+              <p class="text-sm lg:text-base leading-8">
+                {{ appoinmentDetailsData?.note }}
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white h-fit">
+          <div
+            class="p-4 pb-6 flex gap-2 border-solid border-b border-b-neutral-200"
+            *ngIf="appoinmentDetailsData?.phoneNumber"
+          >
+            <div class="filter-grey w-12 mt-3">
+              <img
+                class="w-8 h-8"
+                src="./../../../../../assets/images/Digicalls.svg"
+                [alt]="'VENDOR.PHONE_ICON' | translate"
+              />
+            </div>
+
+            <div>
+              <h2 class="text-sm lg:text-base text-neutral-500">{{ 'VENDOR.DETAILS.PHONE_NUMBER' | translate }}</h2>
+
+              <div class="flex">
+                <form [formGroup]="form">
+                  <ds-input-wrapper class="w-60">
+                    <input
+                      dsInput
+                      formControlName="phone"
+                      type="tel"
+                      class="pointer-events-none"
+                      [placeholder]="appoinmentDetailsData?.phoneNumber"
+                      data-test="vendor-phone"
+                    />
+                  </ds-input-wrapper>
+                </form>
+                <button class="flex justify-start items-start cursor-pointer mt-3" (click)="copyPhone()">
+                  <ds-icon class="ml-3 mr-2" [name]="copyIcon" [size]="16" [color]="copyIconColor"></ds-icon>
+                  <p class="text-sm lg:text-base font-medium">{{ 'VENDOR.DETAILS.COPY_NUMBER' | translate }}</p>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div
+            class="p-4 py-6 flex gap-2 border-solid border-b border-b-neutral-200"
+            *ngIf="appoinmentDetailsData?.zoomLink"
+          >
+            <div class="filter-grey w-12 mt-3">
+              <img
+                class="w-8 h-8"
+                src="./../../../../../assets/images/link.svg"
+                [alt]="'VENDOR.LINK_ICON' | translate"
+              />
+            </div>
+
+            <div>
+              <h2 class="text-sm lg:text-base text-neutral-500">{{ 'VENDOR.DETAILS.ZOOM_LINK' | translate }}</h2>
+
+              <div class="flex flex-wrap">
+                <form class="space-y-6" [formGroup]="form">
+                  <ds-input-wrapper class="w-60">
+                    <input
+                      dsInput
+                      class="pointer-events-none"
+                      formControlName="zoomLink"
+                      type="email"
+                      [placeholder]="appoinmentDetailsData?.zoomLink"
+                      data-test="vendor-zoom"
+                    />
+                  </ds-input-wrapper>
+                </form>
+                <button class="flex justify-start items-center cursor-pointer" (click)="copyLink()">
+                  <ds-icon class="ml-3 mr-2" [name]="copyIcon" [size]="16" [color]="copyIconColor"></ds-icon>
+                  <p class="text-sm lg:text-base font-medium">{{ 'VENDOR.DETAILS.COPY_LINK' | translate }}</p>
+                </button>
+
+                <div class="w-full mt-3">
+                  <button
+                    dsButton="primary"
+                    [disabled]="appoinmentDetailsData?.status === 'cancelled'"
+                    [ngClass]="{ '!bg-primary-p100': appoinmentDetailsData?.status === 'cancelled' }"
+                  >
+                    {{ 'VENDOR.DETAILS.EMAIL_LINK_CLIENT' | translate }}
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="p-4 pb-6 flex justify-start gap-2 border-solid border-b border-b-neutral-200">
+            <div class="filter-grey w-12 mt-3">
+              <ds-icon class="filter-grey" [name]="calendarIcon" [size]="34" [color]="iconColor"></ds-icon>
+            </div>
+
+            <div class="flex-1">
+              <h2 class="text-sm lg:text-base text-neutral-500">{{ 'VENDOR.DETAILS.OTHER_CALENDARS' | translate }}</h2>
+
+              <div class="flex justify-between">
+                <div class="p-4 border-solid border borderborder-gray-1 min-w-fit rounded-sm mr-3 w-1/2">
+                  <img
+                    src="./../../../../../assets/images/google-calendar.svg"
+                    [alt]="'VENDOR.GOOGLE_CALENDAR_ICON' | translate"
+                  />
+                  <button
+                    dsButton="primary"
+                    [disabled]="
+                      appoinmentDetailsData?.status === 'cancelled' ||
+                      appoinmentDetailsData?.vendorGoogleSynced === true
+                    "
+                    [ngClass]="{ '!bg-primary-p100': appoinmentDetailsData?.status === 'cancelled' }"
+                    class="mt-3 min-w-full whitespace-nowrap h-fit"
+                    (click)="initiateGoogleAuth()"
+                  >
+                    {{ 'VENDOR.DETAILS.ADD_TO_GOOGLE_CALENDAR' | translate }}
+                  </button>
+                </div>
+
+                <div class="p-4 border-solid border-gray-1 border min-w-fit rounded-sm w-1/2">
+                  <img src="../../../../../assets/images/day-icon.svg" [alt]="'VENDOR.DATE_ICON' | translate" />
+                  <button
+                    dsButton="primary"
+                    *ngLet="isDownloadICSFilePending$ | async as isDownloadICSFilePending"
+                    [disabled]="appoinmentDetailsData?.status === 'cancelled'"
+                    [ngClass]="{
+                      '!bg-primary-p100': appoinmentDetailsData?.status === 'cancelled',
+                      'w-32': isDownloadICSFilePending
+                    }"
+                    class="mt-3 whitespace-nowrap h-fit"
+                    (click)="downloadIcsFile()"
+                  >
+                    <span *ngIf="!isDownloadICSFilePending">
+                      {{ 'VENDOR.DETAILS.DOWNLOAD_ICS_FILE' | translate }}
+                    </span>
+                    <ds-spinner *ngIf="isDownloadICSFilePending" [color]="whiteSpinnerColor" [size]="20"></ds-spinner>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</ng-container>
+
+<ds-modal [visible]="deleteModalVisible">
+  <ds-modal-header [hideCloseButton]="true">
+    <div class="flex justify-between w-full pr-6">
+      <h3 class="modal-title font-medium text-center text-2xl">
+        {{ 'VENDOR.DETAILS.DELETE_APPOINTMENTS' | translate }}
+      </h3>
+      <ds-icon
+        class="mr-2 cursor-pointer"
+        [name]="closeIcon"
+        [size]="25"
+        [color]="iconColor"
+        (click)="toggleModalVisibility(false)"
+      ></ds-icon>
+    </div>
+  </ds-modal-header>
+
+  <p class="font-medium text-center text-2xl pb-14">{{ 'VENDOR.DETAILS.CONFIRM_DELETE_APPOINTMENT' | translate }}</p>
+  <ds-modal-footer>
+    <button class="mr-2" dsButton="default" [mat-dialog-close]="false" (click)="toggleModalVisibility(false)">
+      {{ 'VENDOR.DETAILS.KEEP_THE_APPOINTMENTS' | translate }}
+    </button>
+    <button
+      class="!bg-[#F44336] border-none max-w-fit shadow-shadow-z200 hover:shadow-shadow-z300 text-white disabled:text-danger-e200 disabled:border-0 disabled:bg-danger-e100 focus:outline-danger-e200 h-10 py-2 px-4 focus:outline-none disabled:shadow-none disabled:cursor-not-allowed tracking-wide rounded-xs border text-sm lg:text-base font-medium font-roboto focus:outline focus:outline-2 focus:outline-offset-2 hover:focus:outline hover:focus:outline-0"
+      [mat-dialog-close]="true"
+      (click)="cancelAppointment()"
+    >
+      {{ 'VENDOR.DETAILS.DELETE_APPOINTMENTS' | translate }}
+    </button>
+    <div class="ml-4 flex justify-center items-center" *ngIf="isCancelPending">
+      <ds-spinner [color]="spinnerColor" [size]="20"></ds-spinner>
+    </div>
+  </ds-modal-footer>
+</ds-modal>

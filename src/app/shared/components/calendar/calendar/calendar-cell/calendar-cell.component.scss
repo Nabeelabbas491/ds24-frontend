@@ -1,0 +1,12 @@
+.today {
+  @apply text-primary-p300-main font-bold relative tracking-tight;
+  .dotcircle {
+    @apply w-1 h-1 bg-primary-p300-main absolute bottom-1 left-[17px] rounded;
+  }
+}
+.muted {
+  @apply text-neutral-n300;
+}
+.selected {
+  @apply border-2 border-primary-p300-main text-primary-p300-main;
+}

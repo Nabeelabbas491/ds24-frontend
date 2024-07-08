@@ -1,0 +1,24 @@
+<div class="flex flex-row justify-start bg-primary">
+  <div class="flex flex-col justify-start items-center w-[56%] bg-neutral-n50">
+    <ds-booking-user-profile [bookingTemplateSummary]="bookingTemplateSummary$ | async"></ds-booking-user-profile>
+    <h4 class="font-medium my-3">{{ 'CALENDAR.SELECT_A_DATE' | translate }}</h4>
+    <ds-calendar></ds-calendar>
+  </div>
+  <div class="w-[44%] bg-neutral-n0 p-5" *ngIf="selectedDay$ | async">
+    <ds-booking-type-selection
+      [meetingType]="meetingType$ | async"
+      (meetingTypeChange)="meetingTypeChange($event)"
+    ></ds-booking-type-selection>
+    <div class="mt-8">
+      <ds-time-selection></ds-time-selection>
+    </div>
+    <div class="mt-5" *ngIf="isBookingSelectionStepComplete$ | async">
+      <button
+        class="w-full h-10 py-2 px-4 bg-primary-p300-main text-neutral-n0 shadow-shadow-z200 text-center"
+        (click)="nextStep()"
+      >
+        {{ 'BOOKING.BOOKING_OTHER.NEXT' | translate }}
+      </button>
+    </div>
+  </div>
+</div>

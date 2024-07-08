@@ -1,0 +1,114 @@
+<div>
+  <h4 class="font-medium">{{ 'BOOKING.BOOKING_FORM.ENTER_DETAILS' | translate }}</h4>
+  <form [formGroup]="form" novalidate (submit)="confirmBooking()" #bookingForm="ngForm">
+    <ds-input-wrapper class="mt-2 text-left">
+      <input dsInput formControlName="name" type="text" [placeholder]="'BOOKING.BOOKING_FORM.NAME' | translate" />
+      <ds-form-label>{{ 'BOOKING.BOOKING_FORM.NAME' | translate }}</ds-form-label>
+    </ds-input-wrapper>
+    <ds-form-sub-text *ngIf="leftCountName$ | async as leftCountName" class="text-left">
+      {{ 'BOOKING.BOOKING_FORM.NAME_DESCRIPTION' | translate: { value: leftCountName } }}
+    </ds-form-sub-text>
+    <div class="w-full text-left">
+      <ds-form-error *ngIf="formControls.name?.hasError('required') && bookingForm.submitted">{{
+        'BOOKING.BOOKING_FORM.NAME_REQUIRED' | translate
+      }}</ds-form-error>
+      <ds-form-error *ngIf="formControls.name?.hasError('maxlength') && bookingForm.submitted">{{
+        'BOOKING.BOOKING_FORM.NAME_MAX_LENGTH' | translate
+      }}</ds-form-error>
+      <ds-form-error *ngIf="formControls.name?.hasError('whitespace') && bookingForm.submitted">{{
+        'BOOKING.BOOKING_FORM.ENTER_VALID_TEXT' | translate
+      }}</ds-form-error>
+    </div>
+    <ds-input-wrapper class="mt-2 text-left">
+      <input
+        dsInput
+        formControlName="email"
+        type="email"
+        [placeholder]="'BOOKING.BOOKING_FORM.EMAIL' | translate"
+        email
+      />
+      <ds-form-label>{{ 'BOOKING.BOOKING_FORM.EMAIL' | translate }}</ds-form-label>
+    </ds-input-wrapper>
+    <div class="w-full text-left">
+      <ds-form-error *ngIf="formControls.email?.hasError('required') && bookingForm.submitted">{{
+        'BOOKING.BOOKING_FORM.EMAIL_REQUIRED' | translate
+      }}</ds-form-error>
+      <ds-form-error *ngIf="formControls.email?.hasError('maxlength') && bookingForm.submitted">{{
+        'BOOKING.BOOKING_FORM.EMAIL_MAX_LENGTH' | translate
+      }}</ds-form-error>
+      <ds-form-error
+        *ngIf="
+          !formControls.email?.hasError('maxlength') && formControls.email?.hasError('email') && bookingForm.submitted
+        "
+        >{{ 'BOOKING.BOOKING_FORM.EMAIL_NOT_IN_VALID_FORMAT' | translate }}</ds-form-error
+      >
+    </div>
+    <ng-container *ngIf="meetingType$ | async as meetingType">
+      <ds-input-wrapper class="mt-2 text-left" *ngIf="meetingType.id === meetingTypeIds.Outbound">
+        <input
+          dsInput
+          formControlName="phoneNo"
+          type="text"
+          [placeholder]="'BOOKING.BOOKING_FORM.PHONE_NUMBER' | translate"
+        />
+        <ds-form-label>{{ 'BOOKING.BOOKING_FORM.PHONE_NUMBER' | translate }}</ds-form-label>
+      </ds-input-wrapper>
+      <ds-form-error *ngIf="formControls.phoneNo.hasError('pattern')">
+        <div class="pt-1">{{ 'BOOKING.BOOKING_FORM.INLCUDE_COUNTRY_CODE_TEXT' | translate }}</div>
+      </ds-form-error>
+    </ng-container>
+    <div class="w-full text-left">
+      <ds-form-error *ngIf="formControls.phoneNo?.hasError('required') && bookingForm.submitted">{{
+        'BOOKING.BOOKING_FORM.PHONE_NUMBER_REQUIRED' | translate
+      }}</ds-form-error>
+      <ds-form-error *ngIf="formControls.phoneNo?.hasError('pattern') && bookingForm.submitted">{{
+        'BOOKING.BOOKING_FORM.PHONE_NUMBER_NOT_IN_VALID_FORMAT' | translate
+      }}</ds-form-error>
+    </div>
+    <ds-textarea class="mt-4 text-left">
+      <textarea
+        dsInput
+        formControlName="note"
+        class="h-[150px]"
+        [placeholder]="'BOOKING.BOOKING_FORM.SHARE_TEXT' | translate"
+      ></textarea>
+      <ds-form-label>{{ 'BOOKING.BOOKING_FORM.NOTES' | translate }}</ds-form-label>
+    </ds-textarea>
+    <ds-form-sub-text *ngIf="leftCountComments$ | async as leftCountComments" class="text-left">
+      {{ 'BOOKING.BOOKING_FORM.COMMENTS_DESCRIPTION' | translate: { value: leftCountComments } }}
+    </ds-form-sub-text>
+    <div class="w-full text-left">
+      <ds-form-error *ngIf="formControls.note?.hasError('maxlength') && bookingForm.submitted">{{
+        'BOOKING.BOOKING_FORM.COMMENTS_MAX_LENGTH' | translate
+      }}</ds-form-error>
+      <ds-form-error *ngIf="formControls.note?.hasError('whitespace') && bookingForm.submitted">{{
+        'BOOKING.BOOKING_FORM.ENTER_VALID_TEXT' | translate
+      }}</ds-form-error>
+    </div>
+    <div class="mt-5" *ngIf="isMobileView$ | async">
+      <button
+        dsButton="default"
+        class="w-full h-10 py-2 px-4 shadow-shadow-z200 text-center"
+        [disabled]="(saveBookingPending$ | async)!"
+        (click)="prevStep()"
+      >
+        {{ 'BOOKING.BOOKING_OTHER.GO_BACK' | translate }}
+      </button>
+    </div>
+    <div class="mt-5">
+      <button
+        class="w-full h-10 py-2 px-4 bg-primary-p300-main text-neutral-n0 shadow-shadow-z200 text-center"
+        type="submit"
+        [disabled]="(saveBookingPending$ | async)!"
+      >
+        {{ 'BOOKING.BOOKING_OTHER.CONFIRM_BOOKING' | translate }}
+      </button>
+    </div>
+    <div class="w-full text-center mt-5">
+      <ds-form-error *ngIf="error$ | async as errorMessage">{{ errorMessage }}</ds-form-error>
+    </div>
+  </form>
+  <div class="flex flex-row justify-center">
+    <ds-spinner *ngIf="saveBookingPending$ | async" [color]="spinnerColor" [size]="30"></ds-spinner>
+  </div>
+</div>

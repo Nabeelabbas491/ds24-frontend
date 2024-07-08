@@ -1,0 +1,19 @@
+<div class="bg-neutral-n0 p-5">
+  <ds-booking-type-selection
+    [meetingType]="meetingType$ | async"
+    (meetingTypeChange)="meetingTypeChange($event)"
+  ></ds-booking-type-selection>
+  <div class="mt-5">
+    <button dsButton="default" class="w-full h-10 py-2 px-4 shadow-shadow-z200 text-center" (click)="prevStep()">
+      {{ 'BOOKING.BOOKING_OTHER.GO_BACK' | translate }}
+    </button>
+  </div>
+  <div class="mt-5">
+    <button
+      class="w-full h-10 py-2 px-4 bg-primary-p300-main text-neutral-n0 shadow-shadow-z200 text-center"
+      (click)="nextStep()"
+    >
+      {{ 'BOOKING.BOOKING_OTHER.NEXT' | translate }}
+    </button>
+  </div>
+</div>

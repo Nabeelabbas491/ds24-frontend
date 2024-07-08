@@ -1,0 +1,36 @@
+<div
+  *ngIf="selectBookingTemplatePending$ | async; else bookingTemplateResult"
+  class="flex flex-col items-center justify-center h-screen"
+>
+  <ds-spinner [color]="spinnerColor" [size]="30"></ds-spinner>
+</div>
+
+<ng-template #bookingTemplateResult>
+  <div *ngIf="selectBookingTemplateError$ | async as bookingTemplateError; else calendarView">
+    <ds-message [type]="messageTypeError">{{ 'BOOKING.BOOKING_OTHER.BOOKING_TEMPLATE_ERROR' | translate }}</ds-message>
+  </div>
+</ng-template>
+
+<ng-template #calendarView>
+  <div
+    class="border-neutral-n200 shadow-shadow-z100 max-w-sm text-center my-4 mx-auto rounded-lg overflow-hidden"
+    *ngIf="isMobileView$ | async; else normalView"
+  >
+    <ng-container [ngSwitch]="currentStep$ | async">
+      <ds-date-time-selection-step *ngSwitchCase="'calendar'"></ds-date-time-selection-step>
+      <ds-booking-type-selection-step *ngSwitchCase="'booking_type'"></ds-booking-type-selection-step>
+      <ds-booking-summary-step *ngSwitchCase="'booking_form'"></ds-booking-summary-step>
+      <ds-booking-confirmation-step *ngSwitchCase="'summary'"></ds-booking-confirmation-step>
+    </ng-container>
+  </div>
+</ng-template>
+
+<ng-template #normalView>
+  <div class="border-neutral-n200 shadow-shadow-z100 max-w-4xl my-4 mx-auto rounded-lg overflow-hidden">
+    <ng-container [ngSwitch]="currentStep$ | async">
+      <ds-booking-selection-step *ngSwitchCase="'calendar'"></ds-booking-selection-step>
+      <ds-booking-summary-step *ngSwitchCase="'booking_form'"></ds-booking-summary-step>
+      <ds-booking-confirmation-step *ngSwitchCase="'summary'"></ds-booking-confirmation-step>
+    </ng-container>
+  </div>
+</ng-template>

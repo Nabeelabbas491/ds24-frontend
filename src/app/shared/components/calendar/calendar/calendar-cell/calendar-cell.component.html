@@ -1,0 +1,22 @@
+<div
+  *ngIf="dayObj"
+  class="h-10 w-10 flex flex-column justify-center items-center font-normal text-base"
+  [ngClass]="{
+    'selected !rounded-full': dayObj.isSelected,
+    'rounded-full bg-primary-p50':
+      !dayObj.isOtherMonth && !dayObj.isPast && (dayObj.isSelectable || calendarMode === dateOverrideMode),
+    today: dayObj.isToday,
+    muted: dayObj.isOtherMonth || dayObj.isPast || !(dayObj.isSelectable || calendarMode === dateOverrideMode),
+    'cursor-pointer hover:bg-primary-p100':
+      !dayObj.isOtherMonth && !dayObj.isPast && (dayObj.isSelectable || calendarMode === dateOverrideMode)
+  }"
+  [title]="dayObj.dayMonthYearTitle"
+  (click)="selectDay()"
+  (keyup)="selectDay()"
+  tabindex="0"
+>
+  {{ dayObj.number }}
+  <ng-container *ngIf="dayObj.isToday">
+    <div class="dotcircle"></div>
+  </ng-container>
+</div>

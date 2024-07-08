@@ -1,0 +1,79 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BookingSelectionStepComponent isBookingSelectionSepComplete should be set to true 1`] = `
+<ds-booking-selection-step
+  bookingTemplateSummary$={[Function _Store]}
+  isBookingSelectionStepComplete$={[Function _Store]}
+  meetingType$={[Function _Store]}
+  selectedDay$={[Function _Store]}
+  store={[Function _MockStore]}
+>
+  <div
+    class="flex flex-row justify-start bg-primary"
+  >
+    <div
+      class="flex flex-col justify-start items-center w-[56%] bg-neutral-n50"
+    >
+      <ds-booking-user-profile />
+      <h4
+        class="font-medium my-3"
+      >
+        CALENDAR.SELECT_A_DATE
+      </h4>
+      <ds-calendar />
+    </div>
+  </div>
+</ds-booking-selection-step>
+`;
+
+exports[`BookingSelectionStepComponent should compile 1`] = `
+<ds-booking-selection-step
+  bookingTemplateSummary$={[Function _Store]}
+  isBookingSelectionStepComplete$={[Function _Store]}
+  meetingType$={[Function _Store]}
+  selectedDay$={[Function _Store]}
+  store={[Function _MockStore]}
+>
+  <div
+    class="flex flex-row justify-start bg-primary"
+  >
+    <div
+      class="flex flex-col justify-start items-center w-[56%] bg-neutral-n50"
+    >
+      <ds-booking-user-profile />
+      <h4
+        class="font-medium my-3"
+      >
+        CALENDAR.SELECT_A_DATE
+      </h4>
+      <ds-calendar />
+    </div>
+  </div>
+</ds-booking-selection-step>
+`;
+
+exports[`BookingSelectionStepComponent should demonstrate bookingType change  1`] = `
+<ds-booking-selection-step
+  bookingTemplateSummary$={[Function _Store]}
+  isBookingSelectionStepComplete$={[Function _Store]}
+  meetingType$={[Function _Store]}
+  selectedDay$={[Function _Store]}
+  store={[Function _MockStore]}
+>
+  <div
+    class="flex flex-row justify-start bg-primary"
+  >
+    <div
+      class="flex flex-col justify-start items-center w-[56%] bg-neutral-n50"
+    >
+      <ds-booking-user-profile />
+      <h4
+        class="font-medium my-3"
+      >
+        CALENDAR.SELECT_A_DATE
+      </h4>
+      <ds-calendar />
+    </div>
+  </div>
+</ds-booking-selection-step>
+`;

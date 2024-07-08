@@ -1,0 +1,15 @@
+<form [formGroup]="timeZonesForm" class="pt-1 max-w-fit" *ngIf="selectedTimeZone$ | async as selectedTimeZone">
+  <ng-container>
+    <ds-select
+      class="w-64"
+      [placeholder]="(placeHolderTimeZone$ | async) || defaultTimeZone"
+      formControlName="timezoneSelect"
+      [multiple]="false"
+    >
+      <ds-select-filter></ds-select-filter>
+      <ds-select-option [value]="timeZone.name" *ngFor="let timeZone of timeZones$ | async">
+        <ng-container>{{ timeZone | timezoneFormat }} </ng-container>
+      </ds-select-option>
+    </ds-select>
+  </ng-container>
+</form>

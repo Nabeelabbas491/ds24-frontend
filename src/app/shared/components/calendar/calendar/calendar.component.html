@@ -1,0 +1,53 @@
+<div class="w-[328px] p-[22px]">
+  <div class="flex flex-row justify-between items-center">
+    <div
+      class="border border-grey w-10 h-10 flex flex-col justify-center items-center cursor-pointer"
+      (click)="prevMonth()"
+      (keyup)="prevMonth()"
+      tabindex="0"
+    >
+      <ds-icon
+        [name]="icons.Chevron"
+        class="rotate-180"
+        [color]="iconColors.Neutral500"
+        [size]="12"
+        [title]="'CALENDAR.PREVIOUS_MONTH' | translate"
+      ></ds-icon>
+    </div>
+    <div>{{ currentMonth$ | async }}</div>
+    <div
+      class="border border-grey w-10 h-10 flex flex-col justify-center items-center cursor-pointer"
+      (click)="nextMonth()"
+      (keyup)="nextMonth()"
+      tabindex="1"
+    >
+      <ds-icon
+        [name]="icons.Chevron"
+        [color]="iconColors.Neutral500"
+        [size]="12"
+        [title]="'CALENDAR.NEXT_MONTH' | translate"
+      ></ds-icon>
+    </div>
+  </div>
+  <div class="h-10 flex flex-row justify-between items-center">
+    <div
+      *ngFor="let weekday of WEEKDAYS"
+      class="w-10 h-10 flex flex-col justify-center items-center font-normal text-base text-neutral-n300"
+    >
+      {{ weekday | translate }}
+    </div>
+  </div>
+  <div>
+    <ng-container *ngFor="let item of populateCalendarDays$ | async">
+      <div class="h-10 flex flex-row justify-between items-center my-[3px]" [ngClass]="{ hidden: !item.length }">
+        <ds-calendar-cell
+          (daySelected)="selectDay($event)"
+          (daysSelected)="selectDays($event)"
+          *ngFor="let dayObj of item"
+          [dayObj]="dayObj"
+          [calendarMode]="calendarMode$ | async"
+        ></ds-calendar-cell>
+      </div>
+    </ng-container>
+  </div>
+</div>

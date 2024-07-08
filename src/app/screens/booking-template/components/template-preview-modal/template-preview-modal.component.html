@@ -1,0 +1,18 @@
+<ng-container *ngIf="bookingTemplate">
+  <ds-modal>
+    <ds-modal-header [hideCloseButton]="true">
+      <div class="flex justify-between w-full pr-6">
+        <h3 class="modal-title font-medium text-center text-2xl">{{ bookingTemplate.bookingTemplate.name }} preview</h3>
+        <ds-icon
+          class="mr-2 cursor-pointer"
+          [name]="closeIcon"
+          [size]="25"
+          [color]="darkIconColor"
+          (click)="closePreviewModal()"
+        ></ds-icon>
+      </div>
+    </ds-modal-header>
+
+    <ds-booking-selection-step></ds-booking-selection-step>
+  </ds-modal>
+</ng-container>

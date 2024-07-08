@@ -1,0 +1,195 @@
+<div
+  class="w-4xl flex justify-start"
+  class="border-t border-neutral-n200"
+  *ngLet="selectVendorSettingCollectionPending$ | async as formPending"
+>
+  <div *ngIf="formPending" class="h-screen flex justify-center items-center">
+    <ds-spinner [color]="spinnerColor" [size]="30"></ds-spinner>
+  </div>
+  <div *ngIf="!formPending">
+    <div class="pt-3 pb-5">
+      <ds-breadcrumb [items]="items" [addBottomMargin]="false"></ds-breadcrumb>
+      <h3 class="font-medium text-2xl mt-4">{{ 'VENDOR_SETTINGS.LABEL' | translate }}</h3>
+    </div>
+    <div class="mb-3" *ngIf="selectVendorSettingsSucess$ | async as successMsg">
+      <ds-message [type]="messageTypeSuccess">{{ successMsg }}</ds-message>
+    </div>
+    <div class="flex">
+      <div class="w-2/3">
+        <form [formGroup]="form">
+          <ds-logo-upload
+            [logoUrl]="vendorSettingCollection?.vendorSetting?.logo"
+            (logoChanged)="updateLogo($event)"
+          ></ds-logo-upload>
+
+          <div class="card bg-neutral-n0 rounded shadow p-6 mb-6 w-full">
+            <div class="text-xl leading-normal font-normal text-black">
+              {{ 'VENDOR_SETTINGS.COLOR_PICKER.COLORS' | translate }}
+            </div>
+            <div class="text-base font-normal text-black pt-3">
+              {{ 'VENDOR_SETTINGS.COLOR_PICKER.DESCRIPTION' | translate }}
+            </div>
+            <div class="flex mt-3">
+              <div class="w-1/2 relative">
+                <div
+                  class="card bg-neutral-n0 rounded shadow p-2 w-full absolute left-4 z-10"
+                  *ngIf="showPrimaryColorPicker"
+                >
+                  <ds-color-picker
+                    #primaryColorPicker
+                    [showGlobalColors]="false"
+                    [currentColor]="{ color: formControls.primaryColor }"
+                    [showPalette]="true"
+                    [toHex]="true"
+                    [recentColors]="['#CED9E0', '#E73A73', '#7DE73A', '#202020', '#25F9D2']"
+                    (updateColor)="tempPrimaryColor = $event.color"
+                  >
+                  </ds-color-picker>
+                  <div class="pb-2 pr-2 flex justify-end">
+                    <button dsButton="default" class="ml-3" (click)="showPrimaryColorPicker = false">
+                      {{ 'VENDOR_SETTINGS.COLOR_PICKER.CANCEL' | translate }}
+                    </button>
+                    <button
+                      dsButton="primary"
+                      class="ml-3"
+                      data-testid="set-primary-color-btn"
+                      (click)="updatePrimaryColor()"
+                    >
+                      {{ 'VENDOR_SETTINGS.COLOR_PICKER.SET_AS_PRIMARY_COLOR' | translate }}
+                    </button>
+                  </div>
+                </div>
+                <div class="text-base font-normal text-neutral-n300 py-2">
+                  {{ 'VENDOR_SETTINGS.COLOR_PICKER.PRIMARY_COLOR' | translate }}
+                </div>
+                <div class="flex items-center">
+                  <div class="w-10 h-10 rounded-sm" [ngStyle]="{ background: formControls.primaryColor.value }"></div>
+                  <button
+                    dsButton="default"
+                    data-testid="primary-color-picker-btn"
+                    class="ml-3"
+                    (click)="selectPrimaryColorPicker()"
+                  >
+                    {{ 'VENDOR_SETTINGS.COLOR_PICKER.PICK_COLOR' | translate }}
+                  </button>
+                </div>
+              </div>
+              <div class="w-1/2 relative">
+                <div
+                  class="card bg-neutral-n0 rounded shadow p-2 w-full absolute left-4 z-2"
+                  *ngIf="showSecondaryColorPicker"
+                >
+                  <ds-color-picker
+                    [showGlobalColors]="false"
+                    [currentColor]="{ color: formControls.secondaryColor }"
+                    [showPalette]="true"
+                    [toHex]="true"
+                    (updateColor)="tempSecondaryColor = $event.color"
+                    [recentColors]="['#CED9E0', '#E73A73', '#7DE73A', '#202020', '#25F9D2']"
+                  >
+                  </ds-color-picker>
+                  <div class="pb-2 pr-2 flex justify-end">
+                    <button dsButton="default" class="ml-3" (click)="showSecondaryColorPicker = false">
+                      {{ 'VENDOR_SETTINGS.COLOR_PICKER.CANCEL' | translate }}
+                    </button>
+                    <button
+                      dsButton="primary"
+                      data-testid="set-secondary-color-btn"
+                      (click)="updateSecondaryColor()"
+                      class="ml-3"
+                    >
+                      {{ 'VENDOR_SETTINGS.COLOR_PICKER.SET_AS_SECONDARY_COLOR' | translate }}
+                    </button>
+                  </div>
+                </div>
+                <div class="text-base font-normal text-neutral-n300 py-2">
+                  {{ 'VENDOR_SETTINGS.COLOR_PICKER.SECONDARY_COLOR' | translate }}
+                </div>
+                <div class="flex items-center">
+                  <div class="w-10 h-10 rounded-sm" [ngStyle]="{ background: formControls.secondaryColor.value }"></div>
+                  <button
+                    dsButton="default"
+                    data-testid="secondary-color-picker-btn"
+                    class="ml-3"
+                    (click)="selectSecondaryColorPicker()"
+                  >
+                    {{ 'VENDOR_SETTINGS.COLOR_PICKER.PICK_COLOR' | translate }}
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <ng-container formArrayName="meetingTypes" *ngIf="vendorSettingCollection?.meetingTypes as meetingTypes">
+            <ng-container *ngIf="meetingTypes.length > 0">
+              <div class="card bg-neutral-n0 rounded shadow p-6 mb-6 w-full">
+                <div class="text-xl leading-normal font-normal text-black">
+                  {{ 'VENDOR_SETTINGS.BOOKING_TYPE.LABEL' | translate }}
+                </div>
+                <div class="text-base leading-normal font-normal text-black py-3">
+                  {{ 'VENDOR_SETTINGS.BOOKING_TYPE.DESCRIPTION' | translate }}
+                </div>
+                <div
+                  class="flex ml-3 flex-wrap"
+                  *ngFor="let meetingTypeItem of meetingTypes; let i = index"
+                  [formGroupName]="i"
+                >
+                  <ds-checkbox formControlName="meetingType" class="pt-3">
+                    <ds-form-label>{{ meetingTypeItem.name }}</ds-form-label>
+                  </ds-checkbox>
+                  <div class="basis-full h-0"></div>
+                  <div class="text-sm font-normal text-neutral-n300 py-2">
+                    {{ meetingTypeItem | bookingTypeDescription: 'settingPage' | translate }}
+                  </div>
+                  <div class="basis-full h-0"></div>
+                  <ds-input-wrapper
+                    *ngIf="
+                      meetingTypeItem.id === inboundPhoneCallType &&
+                      formControls.meetingTypes.controls[i].value.meetingType
+                    "
+                  >
+                    <input dsInput [formControl]="formControls.phoneNumber" type="text" />
+                    <ds-form-label
+                      >{{ 'VENDOR.DETAILS.PHONE_NUMBER' | translate
+                      }}<span class="text-danger-e400">*</span></ds-form-label
+                    >
+                    <ds-form-error>
+                      <div class="pt-1">{{ 'VENDOR.BOOKING.VENDOR_PHONE_NUMBER_REQUIRED' | translate }}</div>
+                    </ds-form-error>
+                  </ds-input-wrapper>
+                  <button
+                    *ngIf="
+                      meetingTypeItem.id === zoomCallType && formControls.meetingTypes.controls[i].value.meetingType
+                    "
+                    dsButton="primary"
+                    class="mt-2 bg-primary-p400"
+                    (click)="connectZoom()"
+                  >
+                    {{ 'VENDOR_SETTINGS.BOOKING_TYPE.CONNECT_ZOOM' | translate }}
+                  </button>
+                </div>
+              </div>
+            </ng-container>
+          </ng-container>
+        </form>
+      </div>
+      <div class="w-[30%]">
+        <ds-preview
+          [primaryColor]="formControls.primaryColor.value"
+          [secondaryColor]="formControls.secondaryColor.value"
+        ></ds-preview>
+      </div>
+    </div>
+    <div>
+      <button dsButton="default">
+        {{ 'VENDOR_SETTINGS.CANCEL' | translate }}
+      </button>
+      <button dsButton="primary" id="save-btn" class="ml-2 bg-primary-p400" (click)="submitVendorSetting()">
+        {{ 'VENDOR_SETTINGS.SAVE' | translate }}
+      </button>
+      <div>
+        <ds-spinner [color]="spinnerColor" *ngIf="selectSaveVendorSettingPending$ | async" [size]="30"></ds-spinner>
+      </div>
+    </div>
+  </div>
+</div>

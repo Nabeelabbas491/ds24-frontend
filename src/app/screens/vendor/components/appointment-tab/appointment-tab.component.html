@@ -1,0 +1,122 @@
+<ng-container *ngLet="isListView$ | async as isList">
+  <ng-container *ngLet="calendarAppointmentCount$ | async as calendarAppointmentCount">
+    <ng-container *ngLet="appointmentCount$ | async as appointmentCount">
+      <div class="flex justify-between items-center py-3 border-t border-neutral-n200">
+        <h1 class="text-2xl font-medium">
+          {{ 'VENDOR.APPOINTMENTS' | translate }}
+        </h1>
+
+        <button dsButton="primary" class="font-medium" (click)="openManageSchedule()">
+          {{ 'VENDOR.MANAGESCHEDULE' | translate }}
+        </button>
+      </div>
+      <div>
+        <div *ngIf="appointmentCount !== 0" class="bg-white p-4 pb-3">
+          <div class="flex justify-between items-center pb-4">
+            <div class="flex justify-start items-center">
+              <h1 class="font-medium tracking-wider text-base">
+                {{
+                  'VENDOR.APPOINTMENT_LABEL'
+                    | translate: { value: isList ? appointmentCount : calendarAppointmentCount }
+                    | uppercase
+                }}
+              </h1>
+            </div>
+
+            <div class="flex border-solid rounded-xs border-gray-1 border">
+              <button
+                class="flex text-xs gap-2 p-3 px-5 border-r items-center"
+                [ngClass]="{
+                  'text-primary-p300-main bg-white': isList,
+                  'bg-gray-100': !isList
+                }"
+                (click)="changeAppoinmentView(true)"
+              >
+                <svg
+                  [ngClass]="{ 'filter-sky-blue': isList }"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M5.37838 10.6C4.61568 10.6 4 11.2253 4 12C4 12.7747 4.61568 13.4 5.37838 13.4C6.14108 13.4 6.75676 12.7747 6.75676 12C6.75676 11.2253 6.14108 10.6 5.37838 10.6ZM5.37838 5C4.61568 5 4 5.62533 4 6.4C4 7.17467 4.61568 7.8 5.37838 7.8C6.14108 7.8 6.75676 7.17467 6.75676 6.4C6.75676 5.62533 6.14108 5 5.37838 5ZM5.37838 16.2C4.61568 16.2 4 16.8347 4 17.6C4 18.3653 4.62486 19 5.37838 19C6.13189 19 6.75676 18.3653 6.75676 17.6C6.75676 16.8347 6.14108 16.2 5.37838 16.2ZM8.13514 18.5333H21V16.6667H8.13514V18.5333ZM8.13514 12.9333H21V11.0667H8.13514V12.9333ZM8.13514 5.46667V7.33333H21V5.46667H8.13514Z"
+                    fill="gray"
+                  />
+                </svg>
+
+                {{ 'VENDOR.LISTLABEL' | translate | uppercase }}
+              </button>
+
+              <button
+                class="flex text-xs gap-2 p-3 px-5"
+                [ngClass]="{
+                  'bg-gray-100': isList,
+                  'text-primary-p300-main bg-white': !isList
+                }"
+                (click)="changeAppoinmentView(false)"
+              >
+                <svg
+                  width="16"
+                  height="16"
+                  [ngClass]="{ 'bg-gray-100': isList, 'filter-sky-blue': !isList }"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M17.3853 3V4.54101H22V21.227H2V4.54101H6.61475V3H8.15576V4.54101H15.8442V3H17.3853ZM3.54101 19.6943H20.459V6.07374H17.3853V7.61475H15.8525V6.07374H8.15576V7.61475H6.61475V6.07374H3.54101V19.6943ZM8.15576 11.1691H6.61475V12.7101H8.15576V11.1691ZM11.2295 11.1691H9.68848V12.7101H11.2295V11.1691ZM12.7705 11.1691H14.3115V12.7101H12.7705V11.1691ZM17.3853 14.2428H15.8442V15.7838H17.3853V14.2428ZM6.61475 14.2428H8.15576V15.7838H6.61475V14.2428ZM11.2295 14.2428H9.68848V15.7838H11.2295V14.2428ZM12.7705 14.2428H14.3115V15.7838H12.7705V14.2428ZM17.3853 11.1691H15.8442V12.7101H17.3853V11.1691Z"
+                    fill="gray"
+                  />
+                </svg>
+
+                {{ 'VENDOR.CALENDARLABEL' | translate | uppercase }}
+              </button>
+            </div>
+          </div>
+          <ds-appointment-list *ngIf="isList && appointmentCount !== 0"></ds-appointment-list>
+          <ds-appointment-calendar *ngIf="!isList"></ds-appointment-calendar>
+        </div>
+
+        <div *ngIf="isList && appointmentCount !== 0" class="flex justify-center pt-6">
+          <ng-container *ngIf="pageSize$ | async as pageSize">
+            <ds-pagination
+              *ngIf="pageCount$ | async as pageCount"
+              [pageSize]="pageSize"
+              [length]="appointmentCount || 0"
+              [page]="pageCount"
+              (pageChange)="pageChange($event)"
+            ></ds-pagination>
+          </ng-container>
+        </div>
+      </div>
+
+      <div *ngIf="isList && appointmentCount === 0">
+        <div
+          class="flex flex-col justify-center items-center min-h-128"
+          *ngIf="appointmentsPending$ | async; else emptyUI"
+        >
+          <ds-spinner [color]="spinnerColor" class="mx-auto" [size]="60"></ds-spinner>
+        </div>
+
+        <ng-template #emptyUI>
+          <div class="flex flex-col justify-start items-center min-h-128">
+            <img
+              class="w-1/3 mt-8"
+              src="./../../../../../assets/images/empty-state-art.svg"
+              alt="{{ 'EMPTY_STATE_ILLUSTRATION' | translate }}"
+            />
+
+            <h5 class="mt-20 mb-10 text-4xl">{{ 'VENDOR.EMPTY_APPOINTMENTS_TITLE' | translate }}</h5>
+
+            <p class="text-lg w-50">{{ 'VENDOR.EMPTY_APPOINTMENTS_SUBTITLE' | translate }}</p>
+            <p class="text-lg w-50">{{ 'VENDOR.EMPTY_APPOINTMENTS_PARA' | translate }}</p>
+          </div>
+        </ng-template>
+      </div>
+    </ng-container>
+  </ng-container>
+</ng-container>

@@ -1,0 +1,82 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DateTimeSelectionStep isBookingSelectionSepComplete should be set to true 1`] = `
+<ds-date-time-selection-step
+  bookingTemplateSummary$={[Function _Store]}
+  isDateTimeSelectionStepComplete$={[Function _Store]}
+  selectedDay$={[Function _Store]}
+  store={[Function _MockStore]}
+>
+  <div
+    class="flex flex-row justify-start bg-neutral-n50"
+  >
+    <div
+      class="flex flex-col justify-start items-center"
+    >
+      <ds-booking-user-profile />
+      <h4
+        class="font-medium my-3"
+      >
+        CALENDAR.SELECT_A_DATE
+      </h4>
+      <ds-calendar />
+      <div
+        class="bg-neutral-n0 p-5"
+      >
+        <ds-time-selection>
+          <h4
+            class="font-medium"
+          >
+            BOOKING.SELECT_TIME
+          </h4>
+        </ds-time-selection>
+        <div
+          class="mt-5"
+        >
+          <button
+            class="w-full h-10 py-2 px-4 bg-primary-p300-main text-neutral-n0 shadow-shadow-z200 text-center"
+          >
+             BOOKING.BOOKING_OTHER.NEXT 
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ds-date-time-selection-step>
+`;
+
+exports[`DateTimeSelectionStep should compile 1`] = `
+<ds-date-time-selection-step
+  bookingTemplateSummary$={[Function _Store]}
+  isDateTimeSelectionStepComplete$={[Function _Store]}
+  selectedDay$={[Function _Store]}
+  store={[Function _MockStore]}
+>
+  <div
+    class="flex flex-row justify-start bg-neutral-n50"
+  >
+    <div
+      class="flex flex-col justify-start items-center"
+    >
+      <ds-booking-user-profile />
+      <h4
+        class="font-medium my-3"
+      >
+        CALENDAR.SELECT_A_DATE
+      </h4>
+      <ds-calendar />
+      <div
+        class="bg-neutral-n0 p-5"
+      >
+        <ds-time-selection>
+          <h4
+            class="font-medium"
+          >
+            BOOKING.SELECT_TIME
+          </h4>
+        </ds-time-selection>
+      </div>
+    </div>
+  </div>
+</ds-date-time-selection-step>
+`;

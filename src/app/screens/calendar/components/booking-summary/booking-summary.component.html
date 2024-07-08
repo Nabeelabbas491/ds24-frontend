@@ -1,0 +1,23 @@
+<ds-booking-info
+  [caption]="(selectCallTypeSummary$ | async)! | translate"
+  [value]="(selectCallType$ | async)! | translate"
+  [iconName]="(selectCallTypeIcon$ | async)!"
+  [iconCaption]="'BOOKING.BOOKING_SUMMARY.BOOKING_TYPE_ICO' | translate"
+></ds-booking-info>
+<ds-booking-info
+  [caption]="'BOOKING.BOOKING_SUMMARY.BOOKING_DATE_SUMMARY' | translate"
+  [value]="(selectedDay$ | async)?.dayMonthYearTitle | date: 'fullDate'"
+  [iconName]="icons.Calendar"
+  [iconCaption]="'BOOKING.BOOKING_SUMMARY.BOOKING_DATE_ICO' | translate"
+></ds-booking-info>
+<ds-booking-info
+  [caption]="'BOOKING.BOOKING_SUMMARY.BOOKING_TIME_SUMMARY' | translate"
+  [value]="selectedTimeSlot$ | async | timeSlot"
+  [iconName]="icons.Clock"
+  [iconCaption]="'BOOKING.BOOKING_SUMMARY.BOOKING_TIMESLOT_ICO' | translate"
+></ds-booking-info>
+<div class="flex flex-row justify-center mt-5 mb-5" *ngIf="(isMobileView$ | async) === false">
+  <button dsButton="default" (click)="editBooking()" [disabled]="(saveBookingPending$ | async)!">
+    {{ 'BOOKING.BOOKING_OTHER.EDIT_BOOKING' | translate }}
+  </button>
+</div>

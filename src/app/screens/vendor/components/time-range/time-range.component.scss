@@ -1,0 +1,5 @@
+// to hide the clock in the time input necessitated by the UX design
+
+input[type='time']::-webkit-calendar-picker-indicator {
+  display: none;
+}

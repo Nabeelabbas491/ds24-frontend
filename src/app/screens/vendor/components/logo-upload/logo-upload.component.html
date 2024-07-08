@@ -1,0 +1,64 @@
+<div class="card bg-neutral-n0 rounded shadow p-6 w-full mb-6">
+  <div class="text-xl leading-normal font-normal text-black">{{ 'VENDOR_SETTINGS.LOGO_UPLOAD.LOGO' | translate }}</div>
+  <div class="text-base font-normal text-black py-3">
+    {{ 'VENDOR_SETTINGS.LOGO_UPLOAD.DESCRIPTION' | translate }}
+  </div>
+  <img
+    [src]="logoUrl"
+    class="h-40 object-contain"
+    *ngIf="logoUrl; else selectedLogo"
+    data-testid="img"
+    alt="{{ 'VENDOR_SETTINGS.LOGO_UPLOAD.IMAGE_ALT' | translate }}"
+  />
+  <input #input class="hidden" type="file" accept="image/*" (change)="selectFile($event)" />
+  <ng-template #selectedLogo>
+    <img
+      [src]="selectedlogo"
+      class="h-40 object-contain text-left"
+      *ngIf="selectedlogo; else uploadLogo"
+      data-testid="img"
+      alt="{{ 'VENDOR_SETTINGS.LOGO_UPLOAD.IMAGE_ALT' | translate }}"
+    />
+  </ng-template>
+  <ng-template #uploadLogo>
+    <button
+      data-testid="logo-div"
+      tabindex="0"
+      class="w-64 h-32 border border-neutral-n200 flex justify-center items-center cursor-pointer"
+      *ngIf="!selectedlogo"
+      (key.enter)="input.click()"
+      (click)="input.click()"
+    >
+      <img
+        class="object-contain"
+        src="assets/images/icons/setting-screen/logo-upload.svg"
+        alt=" {{ 'VENDOR_SETTINGS.LOGO_UPLOAD.IMAGE_ALT' | translate }}"
+      />
+    </button>
+    <div class="text-sm font-normal text-neutral-n300 pt-2 pb-4">
+      {{ 'VENDOR_SETTINGS.LOGO_UPLOAD.RECOMMENDED_SIZE' | translate }}
+    </div>
+  </ng-template>
+  <div class="flex items-center mt-2">
+    <button dsButton="default" (click)="input.click()">
+      <span *ngIf="selectedlogo || logoUrl; else chooseImage">{{
+        'VENDOR_SETTINGS.LOGO_UPLOAD.CHOOSE_IMAGE' | translate
+      }}</span>
+    </button>
+    <button data-testid="remove-btn" class="ml-4" (click)="removeLogo()" *ngIf="selectedlogo || logoUrl">
+      <div class="flex items-center">
+        <ds-icon [name]="icons.Trash" [size]="16" [color]="iconColors.Neutral500"></ds-icon>
+        <div class="text-base font-medium text-black pl-1">
+          {{ 'VENDOR_SETTINGS.LOGO_UPLOAD.REMOVE_BUTTON' | translate }}
+        </div>
+      </div>
+    </button>
+    <div>
+      <ds-spinner [color]="spinnerColor" *ngIf="selectRemoveVendorLogoPending$ | async" [size]="30"></ds-spinner>
+    </div>
+  </div>
+
+  <ng-template #chooseImage>
+    <span>{{ 'VENDOR_SETTINGS.LOGO_UPLOAD.UPLOAD_BUTTON' | translate }}</span>
+  </ng-template>
+</div>

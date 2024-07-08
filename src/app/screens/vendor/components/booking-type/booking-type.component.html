@@ -1,0 +1,35 @@
+<div class="card bg-neutral-n0 rounded shadow p-6 mb-6 w-full">
+  <form [formGroup]="form">
+    <div class="text-xl leading-normal font-normal text-black">
+      {{ 'VENDOR_SETTINGS.BOOKING_TYPE.LABEL' | translate }}
+    </div>
+    <div class="text-base leading-normal font-normal text-black py-3">
+      {{ 'VENDOR_SETTINGS.BOOKING_TYPE.DESCRIPTION' | translate }}
+    </div>
+    <ds-checkbox formControlName="outboundPhoneCall" class="pt-3">
+      <ds-form-label>{{ 'VENDOR_SETTINGS.BOOKING_TYPE.OUTBOUND_PHONE_CALL.LABEL' | translate }}</ds-form-label>
+    </ds-checkbox>
+    <div class="text-sm font-normal text-neutral-n300 py-2">
+      {{ 'VENDOR_SETTINGS.BOOKING_TYPE.OUTBOUND_PHONE_CALL.DESCRIPTION' | translate }}
+    </div>
+    <ds-checkbox formControlName="inboundPhoneCall" class="pt-3">
+      <ds-form-label>{{ 'VENDOR_SETTINGS.BOOKING_TYPE.INBOUND_PHONE_CALL.LABEL' | translate }}</ds-form-label>
+    </ds-checkbox>
+    <div class="text-sm font-normal text-neutral-n300 py-2">
+      {{ 'VENDOR_SETTINGS.BOOKING_TYPE.INBOUND_PHONE_CALL.DESCRIPTION' | translate }}
+    </div>
+    <ds-input-wrapper class="my-2 w-1/3">
+      <input dsInput type="text" [placeholder]="''" formControlName="phoneNumber" />
+      <ds-form-label> {{ 'VENDOR_SETTINGS.BOOKING_TYPE.PHONE_NUMBER' | translate }} </ds-form-label>
+    </ds-input-wrapper>
+    <ds-checkbox formControlName="videoConference" class="pt-3">
+      <ds-form-label> {{ 'VENDOR_SETTINGS.BOOKING_TYPE.VIDEO_CONFERENCE.LABEL' | translate }} </ds-form-label>
+    </ds-checkbox>
+    <div class="text-sm font-normal text-neutral-n300 py-2">
+      {{ 'VENDOR_SETTINGS.BOOKING_TYPE.VIDEO_CONFERENCE.DESCRIPTION' | translate }}
+    </div>
+    <button dsButton="primary" class="mt-2 bg-primary-p400" (click)="connectZoom()">
+      {{ 'VENDOR_SETTINGS.BOOKING_TYPE.CONNECT_ZOOM' | translate }}
+    </button>
+  </form>
+</div>

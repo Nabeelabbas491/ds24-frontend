@@ -1,0 +1,171 @@
+<div class="pt-4 select-none border-t border-neutral-n200" *ngLet="isUnavailable$ | async as isUnavailable">
+  <ds-breadcrumb [items]="items" [addBottomMargin]="false"></ds-breadcrumb>
+
+  <div class="pb-4 pt-3">
+    <h5 class="text-2xl font-medium pb-6">{{ 'VENDOR.MANAGE.MANAGE_SCHEDULE' | translate }}</h5>
+
+    <div class="bg-white p-4 shadow-sm">
+      <p class="font-medium text-base">{{ 'VENDOR.MANAGE.TIME_ZONE' | translate }}</p>
+
+      <ds-time-zone-select> </ds-time-zone-select>
+    </div>
+  </div>
+
+  <div class="flex justify-between" *ngLet="isPending$ | async as isPending">
+    <div class="font-medium text-lg w-[68.5%]" *ngIf="!isPending">
+      <p class="bg-white shadow-sm font-medium text-base p-4">{{ 'VENDOR.MANAGE.SET_WEEKLY_HOURS' | translate }}</p>
+
+      <ds-message class="bg-white shadow-sm px-4 pb-4" *ngIf="isUnavailable" [type]="MessageType.warning">
+        <div class="flex gap-1">
+          <span>
+            {{ 'VENDOR.SCHEDULE.MESSAGE_TEXT' | translate }}
+            <span class="font-medium"> {{ 'VENDOR.SCHEDULE.UNAVAILABLE' | translate }}</span>
+          </span>
+
+          {{ 'VENDOR.SCHEDULE.MESSAGE_TEXT_2' | translate }}
+        </div>
+      </ds-message>
+
+      <form class="bg-white shadow-sm" [formGroup]="daysForm" *ngIf="daysForm">
+        <div formArrayName="days">
+          <ng-container *ngFor="let day of getDayControls; let i = index">
+            <div>
+              <ds-day-row [dayRowIndex]="i" [dayForm]="getDayFormGroup(i)"> </ds-day-row>
+            </div>
+          </ng-container>
+        </div>
+      </form>
+    </div>
+
+    <div class="bg-white flex justify-center items-center w-[68.5%]" *ngIf="isPending">
+      <ds-spinner class="mt-2" [color]="spinnerColor" [size]="30"></ds-spinner>
+    </div>
+
+    <div class="bg-white shadow-sm py-4 w-[30%] flex justify-start items-center flex-col">
+      <p class="font-medium text-base pb-10">{{ 'VENDOR.MANAGE.DATE_OVERRIDES' | translate }}</p>
+
+      <button dsButton="default" type="button" class="w-fit flex items-center mb-4" (click)="openOverrideModal()">
+        <ds-icon class="mr-2" *ngIf="icon" [name]="icon" [size]="12" [color]="iconColor"></ds-icon>
+        <p class="font-medium">{{ 'VENDOR.MANAGE.ADD_DATE_OVERRIDES' | translate }}</p>
+      </button>
+
+      <ds-spinner
+        *ngIf="isRemoveDateOveridePending$ | async as isRemovePending; else overRideDays"
+        class="mt-2"
+        [color]="spinnerColor"
+        [size]="25"
+      ></ds-spinner>
+
+      <ng-template #overRideDays>
+        <div
+          *ngLet="overRideDays$ | async as overRideDays"
+          class="w-full overflow-y-auto"
+          [ngClass]="{ 'max-h-18': isUnavailable, 'max-h-48': !isUnavailable }"
+        >
+          <div
+            *ngFor="let item of overRideDays"
+            class="flex items-center justify-between p-4 border-solid border-b-2 border-gray-200 hover:bg-neutral-n100"
+          >
+            <button
+              class="flex cursor-pointer"
+              [ngClass]="item.startDate !== item.endDate ? 'gap-5' : 'gap-12'"
+              *ngIf="item.slot.length > 0; else unavailable"
+              (click)="openEditSchedule(item.startDate, item.endDate, item.slot, item.id)"
+              (keypress)="openEditSchedule(item.startDate, item.endDate, item.slot, item.id)"
+            >
+              <div class="flex flex-col">
+                <span *ngIf="item.startDate !== item.endDate">
+                  {{ item.startDate | date: 'dd' }} -
+                  {{ item.endDate | date: 'dd' }}
+                  {{ item.endDate | date: 'MMM' }}
+                  {{ item.endDate | date: 'yyyy' }}
+                </span>
+                <span *ngIf="item.startDate === item.endDate">
+                  {{ item.endDate | dateFormat: 'day_half-month_year' }}
+                </span>
+              </div>
+
+              <div class="flex flex-col">
+                <div class="flex gap-2 flex-wrap" *ngFor="let slot of item.slot">
+                  <span class="text-neutral-500">{{ slot.from }} </span>
+                  <span> - </span>
+                  <span class="text-neutral-500">{{ slot.to }}</span>
+                </div>
+              </div>
+            </button>
+            <ng-template #unavailable>
+              <button
+                class="flex cursor-pointer"
+                [ngClass]="item.startDate !== item.endDate ? 'gap-5' : 'gap-12'"
+                (click)="openEditSchedule(item.startDate, item.endDate, item.slot, item.id)"
+                (keypress)="openEditSchedule(item.startDate, item.endDate, item.slot, item.id)"
+              >
+                <div class="flex flex-col">
+                  <span *ngIf="item.startDate !== item.endDate">
+                    {{ item.startDate | date: 'dd' }} -
+                    {{ item.endDate | date: 'dd' }}
+                    {{ item.endDate | date: 'MMM' }}
+                    {{ item.endDate | date: 'yyyy' }}
+                  </span>
+                  <span *ngIf="item.startDate === item.endDate">
+                    {{ item.endDate | dateFormat: 'day_half-month_year' }}
+                  </span>
+                </div>
+
+                <p class="text-neutral-500">{{ 'VENDOR.MANAGE.UNAVAILABLE' | translate }}</p>
+              </button>
+            </ng-template>
+
+            <ds-icon
+              class="mr-1 cursor-pointer"
+              *ngIf="icon"
+              [name]="trash"
+              [size]="25"
+              [color]="iconColor"
+              (click)="removeSelectedOveride(item.id)"
+            ></ds-icon>
+          </div>
+        </div>
+      </ng-template>
+
+      <div class="flex items-center justify-center gap-6 flex-col pt-14 pb-14">
+        <img src="../../../../../assets/images/calendar-gmail.svg" alt="google-calendar-icon" class="w-8 h-8" />
+
+        <button dsButton="default" type="button" class="w-fit flex items-center gap-2">
+          <img src="../../../../../assets/images/synchronize.svg" alt="synchronize-icon" class="w-4 h-4" />
+
+          <p class="font-medium">{{ 'VENDOR.MANAGE.SYNC_WITH_YOUR_CALENDAR' | translate }}</p>
+        </button>
+
+        <!-- Following disabled state button to be active while google calendar is synced -->
+        <button *ngIf="false" dsButton="default" type="button" class="w-fit flex items-center gap-2" [disabled]="true">
+          <img src="../../../../../assets/images/checked.svg" alt="checked-icon" class="w-4 h-4" />
+
+          <p class="font-medium">{{ 'VENDOR.MANAGE.GOOGLE_CALENDAR_SYNCED' | translate }}</p>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="flex mt-4 gap-3">
+    <button
+      type="button"
+      class="w-fit flex mb-12 border-primary-p300-main bg-primary-p300-main shadow-shadow-z200 hover:shadow-shadow-z300 text-white disabled:text-primary-p200 disabled:bg-primary-p100 disabled:border-0 h-10 py-2 px-4 items-center focus:outline-none disabled:shadow-none disabled:cursor-not-allowed tracking-wide rounded-xs border text-base font-medium font-roboto"
+      (click)="saveSchedule()"
+    >
+      <p class="font-medium">
+        {{ 'VENDOR.MANAGE.SAVE_CHANGES' | translate }}
+      </p>
+    </button>
+
+    <button
+      type="button"
+      class="w-fit flex mb-12 border-neutral-n200 bg-white text-text-style-dark-high-emphasis shadow-shadow-z200 hover:shadow-shadow-z300 disabled:bg-neutral-n50 disabled:text-neutral-n200 h-10 py-2 px-4 items-center focus:outline-none disabled:shadow-none disabled:cursor-not-allowed tracking-wide rounded-xs border text-base font-medium font-roboto"
+      (click)="cancelSchedule()"
+    >
+      <p class="font-medium">
+        {{ 'VENDOR.MANAGE.CANCEL' | translate }}
+      </p>
+    </button>
+  </div>
+</div>
+<ds-add-date-override></ds-add-date-override>

@@ -1,0 +1,18 @@
+<div class="flex flex-row justify-start bg-neutral-n50">
+  <div class="flex flex-col justify-start items-center">
+    <ds-booking-user-profile [bookingTemplateSummary]="bookingTemplateSummary$ | async"></ds-booking-user-profile>
+    <h4 class="font-medium my-3">{{ 'CALENDAR.SELECT_A_DATE' | translate }}</h4>
+    <ds-calendar></ds-calendar>
+    <div class="bg-neutral-n0 p-5">
+      <ds-time-selection></ds-time-selection>
+      <div class="mt-5" *ngIf="isDateTimeSelectionStepComplete$ | async">
+        <button
+          class="w-full h-10 py-2 px-4 bg-primary-p300-main text-neutral-n0 shadow-shadow-z200 text-center"
+          (click)="nextStep()"
+        >
+          {{ 'BOOKING.BOOKING_OTHER.NEXT' | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

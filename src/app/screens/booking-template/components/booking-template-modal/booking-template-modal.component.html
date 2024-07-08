@@ -1,0 +1,193 @@
+<ng-container *ngIf="bookingTemplateCollection">
+  <form [formGroup]="bookingTemplateForm">
+    <ds-modal>
+      <ds-modal-header [hideCloseButton]="true">
+        <div class="flex justify-between w-full pr-6">
+          <h3 class="modal-title font-medium text-center text-2xl">
+            <span *ngIf="bookingTemplateCollection.modalState === 'edit'; else createTemplate">{{
+              'VENDOR.BOOKING.EDIT_BOOKING_TEMPLATE' | translate
+            }}</span>
+            <ng-template #createTemplate>{{ 'VENDOR.BOOKING.CREATE_BOOKING_TEMPLATE' | translate }} </ng-template>
+          </h3>
+          <button (click)="cancelBookingModal()">
+            <ds-icon class="mr-2" [name]="closeIcon" [size]="25" [color]="darkIconColor" [mat-dialog-close]="false">
+            </ds-icon>
+          </button>
+        </div>
+      </ds-modal-header>
+      <div class="max-w-[95%] m-auto">
+        <ds-message
+          *ngIf="
+            !bookingTemplateCollection?.vendorSetting?.meetingTypes ||
+            !bookingTemplateCollection?.vendorSetting?.meetingTypes?.length
+          "
+          [type]="warningMessageType"
+          [actionLabel]="'MISC.ENABLE' | translate"
+          (actionEvent)="navigateToSettings()"
+          class="mb-3"
+          ><span class="font-medium">{{ 'VENDOR.BOOKING.BOOKING_TYPES_DISABLED' | translate }}</span> -
+          {{ 'VENDOR.BOOKING.ENABLE_BOOKING_TYPES' | translate }}</ds-message
+        >
+        <ds-input-wrapper>
+          <input dsInput required="true" formControlName="templateName" type="text" data-test="login-username" />
+          <ds-form-label>
+            {{ 'VENDOR.BOOKING.BOOKING_TEMPLATE_NAME' | translate }} <span class="text-danger-e400">*</span>
+          </ds-form-label>
+
+          <ds-form-error>
+            <div class="pt-1">{{ 'VENDOR.BOOKING.REQUIRED_ERROR_MESSAGE' | translate }}</div>
+          </ds-form-error>
+        </ds-input-wrapper>
+
+        <div
+          *ngIf="bookingTemplateForm.get('templateName')?.valid || !bookingTemplateForm.get('templateName')?.touched"
+        >
+          <ds-form-sub-text *ngIf="leftCountName$ | async as leftCountName">
+            {{ 'VENDOR.BOOKING.BOOKING_NAME_DESCRIPTION' | translate: { value: leftCountName } }}
+          </ds-form-sub-text>
+        </div>
+
+        <ds-textarea class="pt-4">
+          <ds-form-label>
+            {{ 'VENDOR.BOOKING.BOOKING_DESCRIPTION_TITLE' | translate }}
+            <span class="text-danger-e400">*</span>
+          </ds-form-label>
+
+          <textarea dsInput class="h-48" formControlName="description"> </textarea>
+
+          <ds-form-sub-text *ngIf="leftCountDescription$ | async as leftCountDescription" class="pt-3">
+            {{ 'VENDOR.BOOKING.BOOKING_DESCRIPTION_LABEL' | translate: { value: leftCountDescription } }}
+          </ds-form-sub-text>
+
+          <ds-form-error>
+            <div class="pt-2">{{ 'VENDOR.BOOKING.REQUIRED_ERROR_MESSAGE' | translate }}</div>
+          </ds-form-error>
+        </ds-textarea>
+
+        <div
+          class="w-full flex justify-between items-center py-5 my-2 bg-warning-w100 border-warning-w100"
+          *ngFor="let meetingProduct of alreadyAttachedMeetingProductList"
+        >
+          <img
+            src="../../../../../assets/images/icons/exclamation-mark.svg"
+            class="px-2"
+            alt="{{ 'VENDOR.BOOKING.WARNING_MSG_ICON_ALT' | translate }}"
+          />
+          <div class="">
+            {{ meetingProduct?.name }} {{ 'VENDOR.BOOKING.ATTACHED_PRODUCT_ID_WARNING_MESSAGE' | translate }}
+          </div>
+          <button
+            class="whitespace-nowrap pl-5 text-warning-w400 cursor-pointer"
+            (click)="removeProductById(meetingProduct?.id)"
+            (keydown)="removeProductById(meetingProduct?.id)"
+          >
+            {{ 'VENDOR.BOOKING.NO_UNDO' | translate }}
+          </button>
+          <button
+            class="whitespace-nowrap px-2 text-warning-w400 cursor-pointer"
+            (click)="switchProductById(meetingProduct?.id)"
+            (keydown)="switchProductById(meetingProduct?.id)"
+          >
+            {{ 'VENDOR.BOOKING.YES_SWITCH' | translate }}
+          </button>
+        </div>
+
+        <ds-select
+          class="w-full pt-4"
+          [placeholder]="'VENDOR.BOOKING.PLACEHOLDER_PRODUCT' | translate"
+          [multiple]="true"
+          [showSelectedIcon]="true"
+          formControlName="products"
+        >
+          <ds-select-filter></ds-select-filter>
+          <ds-form-label>
+            {{ 'VENDOR.BOOKING.CONNECT_PRODUCTS' | translate }}
+          </ds-form-label>
+          <ds-select-option [value]="product.id" *ngFor="let product of bookingTemplateCollection?.meetingProducts">
+            {{ product.name }}
+          </ds-select-option>
+        </ds-select>
+
+        <ds-select
+          class="w-full pt-4"
+          [placeholder]="'VENDOR.BOOKING.PLACEHOLDER_DURATION' | translate"
+          formControlName="duration"
+        >
+          <ds-select-filter></ds-select-filter>
+          <ds-form-label>
+            {{ 'VENDOR.BOOKING.BOOKING_DURATION' | translate }}
+            <span class="text-danger-e400">*</span>
+          </ds-form-label>
+          <ds-select-option [value]="durationItem.value" *ngFor="let durationItem of durations">
+            {{ durationItem.text | translate }}
+          </ds-select-option>
+
+          <ds-form-error>
+            <div class="pt-2">{{ 'VENDOR.BOOKING.REQUIRED_ERROR_MESSAGE' | translate }}</div>
+          </ds-form-error>
+        </ds-select>
+        <ng-container
+          formArrayName="meetingTypes"
+          *ngIf="bookingTemplateCollection?.vendorSetting?.meetingTypes as meetingTypes"
+        >
+          <ng-container *ngIf="meetingTypes.length > 0">
+            <p class="py-5 text-neutral-600 font-medium text-base">
+              {{ 'VENDOR.BOOKING.SET_BOOKING_TYPE' | translate }}
+              <span class="text-danger-e400">*</span>
+            </p>
+            <div
+              class="flex pb-4 ml-3 flex-wrap"
+              *ngFor="let meetingTypeItem of meetingTypes; let i = index"
+              [formGroupName]="i"
+            >
+              <ds-toggleswitch formControlName="meetingType" [size]="'m'" [checked]="true"></ds-toggleswitch>
+
+              <div class="pl-3">
+                <ds-form-label class="font-medium text-xl py-3">{{ meetingTypeItem.name }}</ds-form-label>
+                <ds-form-sub-text>
+                  {{ meetingTypeItem | bookingTypeDescription | translate }}
+                </ds-form-sub-text>
+              </div>
+              <div class="basis-full h-0"></div>
+              <div class="mt-3 ml-22">
+                <ds-input-wrapper
+                  *ngIf="
+                    meetingTypeItem.id === inboundPhoneCallType &&
+                    formControls.meetingTypes.controls[i].value.meetingType
+                  "
+                >
+                  <input dsInput required="true" [formControl]="formControls.vendorPhoneNumber" type="text" />
+                  <ds-form-label
+                    >{{ 'VENDOR.DETAILS.PHONE_NUMBER' | translate
+                    }}<span class="text-danger-e400">*</span></ds-form-label
+                  >
+                  <ds-form-error>
+                    <div class="pt-1">{{ 'VENDOR.BOOKING.VENDOR_PHONE_NUMBER_REQUIRED' | translate }}</div>
+                  </ds-form-error>
+                </ds-input-wrapper>
+              </div>
+            </div>
+          </ng-container>
+        </ng-container>
+      </div>
+      <ds-modal-footer>
+        <button class="mr-2" dsButton="default" [mat-dialog-close]="false" (click)="cancelBookingModal()">
+          {{ 'VENDOR.DETAILS.CANCEL' | translate }}
+        </button>
+        <button
+          dsButton="primary"
+          type="submit"
+          [mat-dialog-close]="true"
+          (click)="submitBookingTemplateModal()"
+          [disabled]="alreadyAttachedMeetingProductList.length > 0"
+        >
+          <span *ngIf="bookingTemplateCollection?.modalState === 'edit'; else createTemplate">{{
+            'VENDOR.BOOKING.EDIT_BOOKING_TEMPLATE' | translate
+          }}</span>
+          <ng-template #createTemplate>{{ 'VENDOR.BOOKING.CREATE_BOOKING_TEMPLATE' | translate }} </ng-template>
+        </button>
+        <ds-spinner [color]="spinnerColor" *ngIf="upsertBookingTemplatePending$ | async" [size]="30"></ds-spinner>
+      </ds-modal-footer>
+    </ds-modal>
+  </form>
+</ng-container>

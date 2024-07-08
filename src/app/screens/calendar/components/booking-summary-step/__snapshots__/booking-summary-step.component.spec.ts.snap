@@ -1,0 +1,127 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BookingSummaryStepComponent should compile 1`] = `
+<ds-booking-summary-step
+  bookingTemplateSummary$={[Function _Store]}
+  isMobileView$={[Function _Store]}
+  store={[Function _MockStore]}
+>
+  <div
+    class="flex flex-row flex-wrap justify-start bg-primary"
+  >
+    <div
+      class="flex flex-col justify-start items-center mobile-view:items-start mobile-view:ml-5 w-[56%] mobile-view:w-full"
+    >
+      <ds-booking-summary>
+        <ds-booking-info />
+        <ds-booking-info />
+        <ds-booking-info />
+      </ds-booking-summary>
+    </div>
+    <div
+      class="w-[44%] mobile-view:w-full mobile-view:mt-5 bg-neutral-n0 p-5"
+    >
+      <ds-booking-form>
+        <div>
+          <h4
+            class="font-medium"
+          >
+            BOOKING.BOOKING_FORM.ENTER_DETAILS
+          </h4>
+          <form
+            class="ng-untouched ng-pristine ng-invalid"
+            novalidate=""
+          >
+            <ds-input-wrapper
+              class="mt-2 text-left"
+            >
+              <input
+                class="ng-untouched ng-pristine ng-invalid"
+                dsinput=""
+                formcontrolname="name"
+                placeholder="BOOKING.BOOKING_FORM.NAME"
+                type="text"
+              />
+              <ds-form-label>
+                BOOKING.BOOKING_FORM.NAME
+              </ds-form-label>
+            </ds-input-wrapper>
+            <ds-form-sub-text
+              class="text-left"
+            >
+               BOOKING.BOOKING_FORM.NAME_DESCRIPTION 
+            </ds-form-sub-text>
+            <div
+              class="w-full text-left"
+            >
+            </div>
+            <ds-input-wrapper
+              class="mt-2 text-left"
+            >
+              <input
+                class="ng-untouched ng-pristine ng-invalid"
+                dsinput=""
+                email=""
+                formcontrolname="email"
+                placeholder="BOOKING.BOOKING_FORM.EMAIL"
+                type="email"
+              />
+              <ds-form-label>
+                BOOKING.BOOKING_FORM.EMAIL
+              </ds-form-label>
+            </ds-input-wrapper>
+            <div
+              class="w-full text-left"
+            >
+            </div>
+            <div
+              class="w-full text-left"
+            >
+            </div>
+            <ds-textarea
+              class="mt-4 text-left"
+            >
+              <textarea
+                class="h-[150px] ng-untouched ng-pristine ng-valid"
+                dsinput=""
+                formcontrolname="note"
+                placeholder="BOOKING.BOOKING_FORM.SHARE_TEXT"
+              />
+              <ds-form-label>
+                BOOKING.BOOKING_FORM.NOTES
+              </ds-form-label>
+            </ds-textarea>
+            <ds-form-sub-text
+              class="text-left"
+            >
+               BOOKING.BOOKING_FORM.COMMENTS_DESCRIPTION 
+            </ds-form-sub-text>
+            <div
+              class="w-full text-left"
+            >
+            </div>
+            <div
+              class="mt-5"
+            >
+              <button
+                class="w-full h-10 py-2 px-4 bg-primary-p300-main text-neutral-n0 shadow-shadow-z200 text-center"
+                type="submit"
+              >
+                 BOOKING.BOOKING_OTHER.CONFIRM_BOOKING 
+              </button>
+            </div>
+            <div
+              class="w-full text-center mt-5"
+            >
+            </div>
+          </form>
+          <div
+            class="flex flex-row justify-center"
+          >
+          </div>
+        </div>
+      </ds-booking-form>
+    </div>
+  </div>
+</ds-booking-summary-step>
+`;

@@ -1,0 +1,86 @@
+<div *ngIf="openOverRideModal$ | async as isModalOpen">
+  <ds-modal>
+    <ds-modal-header [hideCloseButton]="true">
+      <div class="flex justify-between w-full pr-6">
+        <h3 class="modal-title font-medium text-center text-2xl">
+          {{ 'VENDOR.MANAGE.ADD_DATE_OVERRIDES' | translate }}
+        </h3>
+        <button (click)="cancelOverrideModal()">
+          <ds-icon class="mr-2" [name]="closeIcon" [size]="25" [color]="iconColor"></ds-icon>
+        </button>
+      </div>
+    </ds-modal-header>
+    <div class="flex justify-around pt-8">
+      <ds-calendar></ds-calendar>
+
+      <form [formGroup]="overideDaysForm" class="w-[41%] shadow-slate-300 shadow-sm flex items-left flex-col h-fit">
+        <p class="font-medium py-4 pl-4">{{ 'VENDOR.MANAGE.HOURS_AVAILABLE_TEXT' | translate }}</p>
+
+        <div formArrayName="timeRange" class="w-full select-none">
+          <div
+            class="flex justify-center"
+            *ngFor="let day of getOverRideDayControls; let timeRangeIndex = index; let last = last"
+            [class.border-b-2.border-solid]="!last"
+            class="w-full flex justify-around items-center p-4 border-gray-200 hover:bg-neutral-100"
+            [formGroupName]="timeRangeIndex"
+          >
+            <ds-time-range
+              [timeRangeIndex]="timeRangeIndex"
+              [timeRangeGroup]="getTimeRangeGroup(timeRangeIndex)"
+              [timeRangeArray]="getTimeRangeArray"
+            >
+              <div class="flex items-center">
+                <ds-icon
+                  class="mx-3 cursor-pointer"
+                  *ngIf="icon"
+                  [name]="trash"
+                  [size]="25"
+                  [color]="iconColor"
+                  (click)="removeTimeRanges(timeRangeIndex)"
+                ></ds-icon>
+                <ds-icon
+                  class="mx-3 cursor-pointer"
+                  *ngIf="icon"
+                  [name]="icon"
+                  [size]="18"
+                  [color]="iconColor"
+                  (click)="appendTimeRanges()"
+                ></ds-icon>
+              </div>
+            </ds-time-range>
+          </div>
+
+          <div
+            *ngIf="getOverRideDayControls.length === 0"
+            class="w-full flex items-center justify-between px-4 py-6 border-solid border-b border-gray-200 hover:bg-neutral-100"
+          >
+            <p class="text-neutral-500">{{ 'VENDOR.MANAGE.UNAVAILABLE' | translate }}</p>
+            <ds-icon
+              class="ml-3 cursor-pointer"
+              *ngIf="icon"
+              [name]="icon"
+              [size]="20"
+              [color]="iconColor"
+              (click)="appendTimeRanges()"
+            ></ds-icon>
+          </div>
+        </div>
+      </form>
+    </div>
+    <ds-modal-footer>
+      <button class="mr-2" dsButton="default" [mat-dialog-close]="false" (click)="cancelOverrideModal()">
+        {{ 'VENDOR.DETAILS.CANCEL' | translate }}
+      </button>
+      <ng-container *ngIf="selectedDays$ | async as selectedDays">
+        <button
+          dsButton="primary"
+          [disabled]="selectedDays.length === 0"
+          [mat-dialog-close]="true"
+          (click)="saveOverrides()"
+        >
+          {{ 'VENDOR.MANAGE.SAVE' | translate }}
+        </button>
+      </ng-container>
+    </ds-modal-footer>
+  </ds-modal>
+</div>

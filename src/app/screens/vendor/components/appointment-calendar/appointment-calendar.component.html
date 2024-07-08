@@ -1,0 +1,159 @@
+<div class="bg-white" *ngLet="calendarPending$ | async as isPending">
+  <div *ngIf="!isPending" class="p-4 font-inter pt-0">
+    <div class="flex items-center justify-center">
+      <div class="flex items-center justify-center gap-3 pb-4 sm:gap-12">
+        <button class="p-3" (click)="getPrevMonth()">
+          <ds-icon
+            [name]="icons.Chevron"
+            class="rotate-180"
+            [color]="iconColors.Neutral400"
+            [size]="12"
+            [title]="'CALENDAR.PREVIOUS_MONTH' | translate"
+          ></ds-icon>
+        </button>
+        <p class="font-medium text-xl leading-8" *ngIf="firstDayOfMonth$ | async as firstDayOfMonth">
+          {{ firstDayOfMonth | date: 'MMMM yyyy' }}
+        </p>
+        <button class="p-3" (click)="getNextMonth()">
+          <ds-icon
+            [name]="icons.Chevron"
+            [color]="iconColors.Neutral400"
+            [size]="12"
+            [title]="'CALENDAR.NEXT_MONTH' | translate"
+          ></ds-icon>
+        </button>
+      </div>
+    </div>
+
+    <div class="flex justify-start align-center flex-wrap">
+      <div
+        *ngFor="let day of days"
+        class="w-[14.28%] flex justify-start items-start border border-solid border-neutral-n100"
+      >
+        <p class="p-3 text-sm text-neutral-n400 font-medium">{{ day | translate }}</p>
+      </div>
+    </div>
+    <div
+      class="grid grid-cols-7 place-items-center border border-solid box-content border-neutral-n100"
+      *ngIf="daysWithEventsData$ | async as daysWithEventsData"
+    >
+      <ng-container *ngFor="let day of daysWithEventsData">
+        <div
+          [ngClass]="colStartClasses[getDayOfWeek(day.date)]"
+          class="w-full h-full aspect-square flex justify-between flex-col items-start border border-solid border-neutral-n100 box-content hover:!bg-neutral-n100"
+        >
+          <p
+            class="cursor-pointer rounded-full mt-3 ml-3 font-medium text-base leading-5"
+            [ngClass]="{
+              'bg-danger-e300 flex justify-center text-white rounded-full aspect-square':
+                day.date.getTime() === today.getTime(),
+              '!text-neutral-300': day.isSameMonth !== true,
+              'text-neutral-n400': day.isSameMonth === true
+            }"
+          >
+            {{ day.date | date: 'd' }}
+          </p>
+
+          <div class="flex items-start flex-col">
+            <ng-container *ngFor="let event of day.eventsData; let eventIndex = index">
+              <button
+                *ngIf="eventIndex <= 2"
+                class="text-white p-1 mx-2 mt-2 rounded-md text-xs font-medium"
+                [class.mb-2]="eventIndex === day.eventsData.length - 1"
+                [ngClass]="event.appointmentStatus !== cancelled ? 'bg-primary-p300-main' : 'bg-danger-e300'"
+                (click)="showDetailsPage(day.eventsData[eventIndex].appointmentId)"
+                (keyup)="showDetailsPage(day.eventsData[eventIndex].appointmentId)"
+              >
+                <div class="flex">
+                  <img
+                    src="./../../../../../assets/images/camera-white.svg"
+                    *ngIf="day.eventsData[eventIndex]?.appointmentType === videoBooking"
+                    alt="'VENDOR.LIST.CAMERA_ALT_TEXT' | translate"
+                    class="mr-1"
+                  />
+
+                  <img
+                    src="./../../../../../assets/images/Phone-white.svg"
+                    *ngIf="
+                      day.eventsData[eventIndex]?.appointmentType === outboundCall ||
+                      day.eventsData[eventIndex]?.appointmentType === inboundCall
+                    "
+                    alt="'VENDOR.LIST.PHONE_ALT_TEXT' | translate"
+                    class="mr-1"
+                  />
+
+                  <div
+                    class="w-20 truncate text-left"
+                    [class]="{
+                      'line-through': event.appointmentStatus === cancelled
+                    }"
+                    [matTooltip]="event.appointmentTime"
+                    [matTooltipPosition]="'below'"
+                    matTooltipClass="bg-neutral-n500 text-xs text-neutral-50 rounded-md"
+                  >
+                    {{ event.appointmentTime }}
+                  </div>
+                </div>
+              </button>
+            </ng-container>
+            <button
+              mat-button
+              [matMenuTriggerFor]="eventDayList"
+              (click)="setSelectedEventData(day.eventsData)"
+              *ngIf="day.eventsData.length > 3"
+              class="bg-slate-300 text-neutral-800 p-1 m-2 rounded-md text-xs font-medium"
+            >
+              + {{ day.eventsData.length - 3 }} {{ 'VENDOR.CALENDAR.MORE_BUTTON_TEXT' | translate }}
+            </button>
+            <mat-menu class="w-72 shadow-lg" yPosition="above" xPosition="after" #eventDayList="matMenu">
+              <div class="flex flex-col p-4 bg-neutral-n100">
+                <ng-container *ngFor="let event of selectedEventData; let eventIndex = index">
+                  <button
+                    class="text-start text-white p-2 mt-2 rounded-md text-xs font-medium"
+                    [ngClass]="event.appointmentStatus !== cancelled ? 'bg-primary-p300-main' : 'bg-danger-e300'"
+                    (click)="showDetailsPage(day.eventsData[eventIndex].appointmentId)"
+                    (keyup)="showDetailsPage(day.eventsData[eventIndex].appointmentId)"
+                  >
+                    <div class="flex">
+                      <img
+                        src="./../../../../../assets/images/camera-white.svg"
+                        *ngIf="day.eventsData[eventIndex]?.appointmentType === videoBooking"
+                        alt="'VENDOR.LIST.CAMERA_ALT_TEXT' | translate"
+                        class="mr-1"
+                      />
+
+                      <img
+                        src="./../../../../../assets/images/Phone-white.svg"
+                        *ngIf="
+                          day.eventsData[eventIndex]?.appointmentType === outboundCall ||
+                          day.eventsData[eventIndex]?.appointmentType === inboundCall
+                        "
+                        alt="'VENDOR.LIST.PHONE_ALT_TEXT' | translate"
+                        class="mr-1"
+                      />
+
+                      <div
+                        class="w-40 truncate text-left"
+                        [class]="{
+                          'line-through': event.appointmentStatus === cancelled
+                        }"
+                        [matTooltip]="event.appointmentTime"
+                        [matTooltipPosition]="'below'"
+                        matTooltipClass="bg-neutral-n500 text-xs text-neutral-50 rounded-md"
+                      >
+                        {{ event.appointmentTime }}
+                      </div>
+                    </div>
+                  </button>
+                </ng-container>
+              </div>
+            </mat-menu>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+  <div class="min-h-128 flex justify-center items-center" *ngIf="isPending">
+    <ds-spinner [color]="spinnerColor" class="mx-auto" [size]="60"></ds-spinner>
+  </div>
+</div>

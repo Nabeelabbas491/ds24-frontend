@@ -1,0 +1,6 @@
+{
+  "/iframe-resizer.min.js": {
+    "target": "/dist/iframe-resizer.min.js",
+    "secure": false
+  }
+}

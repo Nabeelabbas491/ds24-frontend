@@ -1,0 +1,161 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LoaderComponent should compile 1`] = `
+LoaderComponent {
+  "__ngContext__": 0,
+  "activatedRoute": {
+    "snapshot": {
+      "queryParamMap": ParamsAsMap {
+        "params": {
+          "code": "xyz",
+        },
+      },
+    },
+  },
+  "spinnerColor": "fill-neutral-n500",
+  "store": _MockStore {
+    "actionsObserver": _ActionsSubject {
+      "_value": {
+        "type": "@ngrx/store/init",
+      },
+      "closed": false,
+      "currentObservers": null,
+      "hasError": false,
+      "isStopped": false,
+      "observers": [],
+      "thrownError": null,
+    },
+    "dispatch": [MockFunction],
+    "initialState": {},
+    "lastState": {},
+    "reducerManager": _MockReducerManager {
+      "_value": [Function],
+      "closed": false,
+      "currentObservers": null,
+      "hasError": false,
+      "isStopped": false,
+      "observers": [],
+      "thrownError": null,
+    },
+    "scannedActions$": Observable {
+      "source": _ActionsSubject {
+        "_value": {
+          "type": "@ngrx/store/init",
+        },
+        "closed": false,
+        "currentObservers": null,
+        "hasError": false,
+        "isStopped": false,
+        "observers": [],
+        "thrownError": null,
+      },
+    },
+    "selectors": Map {},
+    "source": _MockState {
+      "_value": {},
+      "closed": false,
+      "currentObservers": [
+        SafeSubscriber {
+          "_finalizers": [
+            Subscription {
+              "_finalizers": null,
+              "_parentage": [Circular],
+              "closed": false,
+              "initialTeardown": [Function],
+            },
+          ],
+          "_parentage": null,
+          "closed": false,
+          "destination": ConsumerObserver {
+            "partialObserver": {
+              "error": [Function],
+              "next": [Function],
+            },
+          },
+          "initialTeardown": undefined,
+          "isStopped": false,
+        },
+      ],
+      "hasError": false,
+      "isStopped": false,
+      "observers": [
+        SafeSubscriber {
+          "_finalizers": [
+            Subscription {
+              "_finalizers": null,
+              "_parentage": [Circular],
+              "closed": false,
+              "initialTeardown": [Function],
+            },
+          ],
+          "_parentage": null,
+          "closed": false,
+          "destination": ConsumerObserver {
+            "partialObserver": {
+              "error": [Function],
+              "next": [Function],
+            },
+          },
+          "initialTeardown": undefined,
+          "isStopped": false,
+        },
+      ],
+      "state": [Function],
+      "thrownError": null,
+    },
+    "state": [Function],
+    "state$": _MockState {
+      "_value": {},
+      "closed": false,
+      "currentObservers": [
+        SafeSubscriber {
+          "_finalizers": [
+            Subscription {
+              "_finalizers": null,
+              "_parentage": [Circular],
+              "closed": false,
+              "initialTeardown": [Function],
+            },
+          ],
+          "_parentage": null,
+          "closed": false,
+          "destination": ConsumerObserver {
+            "partialObserver": {
+              "error": [Function],
+              "next": [Function],
+            },
+          },
+          "initialTeardown": undefined,
+          "isStopped": false,
+        },
+      ],
+      "hasError": false,
+      "isStopped": false,
+      "observers": [
+        SafeSubscriber {
+          "_finalizers": [
+            Subscription {
+              "_finalizers": null,
+              "_parentage": [Circular],
+              "closed": false,
+              "initialTeardown": [Function],
+            },
+          ],
+          "_parentage": null,
+          "closed": false,
+          "destination": ConsumerObserver {
+            "partialObserver": {
+              "error": [Function],
+              "next": [Function],
+            },
+          },
+          "initialTeardown": undefined,
+          "isStopped": false,
+        },
+      ],
+      "state": [Function],
+      "thrownError": null,
+    },
+  },
+}
+`;

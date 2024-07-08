@@ -1,0 +1,147 @@
+<div class="bg-white flex flex-col justify-start overflow-x-hidden">
+  <div class="flex flex-col">
+    <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
+      <div class="inline-block min-w-full sm:px-4 lg:px-8">
+        <div class="overflow-hidden" *ngLet="appointmentsPending$ | async as isPending">
+          <table
+            aria-describedby="appointment-list"
+            class="min-w-full text-left text-sm font-light border-solid border border-gray-200 border-separate border-spacing-0 rounded-md"
+          >
+            <thead>
+              <tr>
+                <th
+                  scope="col"
+                  class="px-4 text-base font-normal border-solid border-b border-gray-1 rounded-b-none h-11"
+                >
+                  {{ 'VENDOR.LIST.NAME' | translate | titlecase }}
+                </th>
+                <th
+                  scope="col"
+                  class="px-4 text-base font-normal border-solid border-b border-gray-1 rounded-b-none h-11 cursor-pointer"
+                >
+                  <button class="flex font-medium gap-3" (click)="sortTableData()" (keypress)="sortTableData()">
+                    <ds-icon
+                      class="filter-grey"
+                      [class.rotate-180]="!isSortAscending"
+                      [name]="arrowDown"
+                      [size]="20"
+                      [color]="greyColor"
+                    ></ds-icon>
+
+                    {{ 'VENDOR.LIST.DATE' | translate | titlecase }}
+                  </button>
+                </th>
+                <th
+                  scope="col"
+                  class="px-4 text-base font-normal border-solid border-b border-gray-1 rounded-b-none h-11"
+                >
+                  {{ 'VENDOR.LIST.TIME' | translate | titlecase }}
+                </th>
+                <th
+                  scope="col"
+                  class="px-4 text-base font-normal border-solid border-b border-gray-1 rounded-b-none h-11"
+                >
+                  {{ 'VENDOR.LIST.BOOKINGTYPE' | translate | titlecase }}
+                </th>
+
+                <th
+                  scope="col"
+                  class="px-4 text-base font-normal border-solid border-b border-gray-1 rounded-b-none h-11"
+                >
+                  {{ 'VENDOR.LIST.PRODUCT' | translate | titlecase }}
+                </th>
+                <th
+                  scope="col"
+                  class="px-4 text-base font-normal border-solid border-b border-gray-1 rounded-b-none h-11"
+                ></th>
+              </tr>
+            </thead>
+            <tbody *ngIf="!isPending">
+              <tr
+                *ngFor="let element of appointmentList; let odd = odd"
+                [class]="{
+                  '!bg-red-100': element.status === cancelled,
+                  'bg-neutral-n100': odd && element.status !== cancelled
+                }"
+                class="border-none py-5 font-normal cursor-pointer"
+              >
+                <td class="px-4 py-4 font-normal border-none text-base">
+                  <div
+                    class="flex gap-3 items-center"
+                    [matTooltip]="element.name"
+                    [matTooltipPosition]="'below'"
+                    matTooltipClass="bg-neutral-n500 text-xs text-neutral-50 rounded-md"
+                  >
+                    <div class="truncate w-16">
+                      {{ element.name }}
+                    </div>
+
+                    <ds-cancelled-badge *ngIf="element.status === cancelled" [elementStatus]="element.status">
+                    </ds-cancelled-badge>
+                  </div>
+                </td>
+                <td class="whitespace-nowrap px-4 py-4 border-none text-base">
+                  {{ element.date | date: 'dd MMM, yyyy' }}
+                </td>
+                <td class="whitespace-nowrap px-4 py-4 border-none text-base">
+                  {{ element.startTime }}
+                  {{ element.abbreviatedTimeZone ? element.abbreviatedTimeZone : element.timezone }}
+                </td>
+                <td class="whitespace-nowrap px-4 py-4 border-none text-base">
+                  <div class="flex">
+                    <img
+                      src="./../../../../../assets/images/camera.svg"
+                      class="mr-3"
+                      alt="'VENDOR.LIST.CAMERA_ALT_TEXT' | translate"
+                      *ngIf="element.bookingMeetingType.id === videoBooking"
+                    />
+
+                    <img
+                      src="./../../../../../assets/images/Phone.svg"
+                      alt="'VENDOR.LIST.PHONE_ALT_TEXT' | translate"
+                      class="mr-3"
+                      *ngIf="
+                        element.bookingMeetingType.id === outboundCall || element.bookingMeetingType.id === inboundCall
+                      "
+                    />
+
+                    {{ element.bookingMeetingType.name }}
+                  </div>
+                </td>
+
+                <td class="whitespace-nowrap px-4 py-4 border-none text-base">
+                  <div
+                    class="truncate w-20"
+                    [matTooltip]="element.bookingProduct.productName"
+                    [matTooltipPosition]="'below'"
+                    matTooltipClass="bg-neutral-n500 text-xs text-neutral-50 rounded-md"
+                  >
+                    {{ element.bookingProduct.productName }}
+                  </div>
+                </td>
+                <td class="whitespace-nowrap px-4 py-4 border-none flex justify-end text-base">
+                  <button
+                    *ngIf="element.bookingMeetingType.id === videoBooking"
+                    dsButton="default"
+                    class="font-medium p-4 mr-4"
+                  >
+                    <a [href]="element.zoomLink" target="_blank" rel="noopener noreferrer">
+                      {{ 'VENDOR.TABLEACTIONS.JOINLABEL' | translate }}
+                    </a>
+                  </button>
+                  <button dsButton="default" class="font-medium p-4" (click)="showDetailsPage(element.id)">
+                    {{ 'VENDOR.TABLEACTIONS.VIEW' | translate }}
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div *ngIf="isPending" class="h-96 flex items-center justify-center">
+            <ds-spinner [color]="spinnerColor" class="mx-auto pl-6" [size]="40"></ds-spinner>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,173 @@
+{
+  "LOGIN": {
+    "USERNAME": {
+      "LABEL": "Nutzername",
+      "PLACEHOLDER": "Nutzername"
+    },
+    "PASSWORD": {
+      "LABEL": "Passwort",
+      "PLACEHOLDER": "Passwort",
+      "HINT": "Hinweis: Die Standardeinstellung ist ngrx"
+    },
+    "SIGN_IN": "Anmelden"
+  },
+  "VENDOR": {
+    "BOOKING": {
+      "TITLE": "Buchungsvorlagen",
+      "ADD_BOOKING_TITLE": "Buchungsvorlage hinzufügen",
+      "CREATE_TITLE": "Erstellen Sie Ihre erste Buchungsvorlage",
+      "LANDING_PAGE_ACTION_TEXT": "Klicken Sie auf die Schaltfläche unten, um Ihre Buchungsvorlage zu erstellen.",
+      "LANDING_PAGE_ACTION_BUTTON_TEXT": "Buchungsvorlage erstellen",
+      "LANDING_IMG": "Landebannerbild",
+      "CREATE_BOOKING_TEMPLATE": "Buchungsvorlage erstellen",
+      "BOOKING_TEMPLATE_NAME": "Name der Buchungsvorlage",
+      "REQUIRED_ERROR_MESSAGE": "Bitte geben Sie die erforderlichen Werte ein",
+      "BOOKING_NAME_DESCRIPTION": "Geben Sie Name und Zweck der Buchungsvorlage an. {{value}}) ",
+      "BOOKING_DESCRIPTION_TITLE": "Beschreibung",
+      "BOOKING_DESCRIPTION_LABEL": "Anhand dieser Beschreibung können Sie den Zweck dieser Vorlage erkennen und Kunden mehr Kontext über die Art der Besprechungen oder Sitzungen bieten, die sie buchen.  {{value}})",
+      "CONNECT_PRODUCTS": "Produkte verbinden",
+      "BOOKING_DURATION": "Buchungsdauer",
+      "SET_BOOKING_TYPE": "Buchungstyp festlegen",
+      "OUTBOUND_PHONE_CALL": "Ausgehender Anruf",
+      "OUTBOUND_DESCRIPTION": "Sie leiten den Anruf beim Kunden ein. ",
+      "INBOUND_PHONE_CALL": "Eingehender Anruf",
+      "INBOUND_DESCRIPTION": "Der Kunde wird den Anruf bei Ihnen einleiten. ",
+      "VIDEO_CONFERENCE_LABEL": "Videokonferenz mit Zoom",
+      "VIDEO_DESCRIPTION": "Ein Videoanruf mit Zoom.",
+      "EDIT_BOOKING_TEMPLATE": "Buchungsvorlage bearbeiten",
+      "PLACEHOLDER_PRODUCT": "Wählen Sie Produkte aus",
+      "PLACEHOLDER_DURATION": "60 Minuten"
+    },
+    "MANAGESCHEDULE": "Zeitplan verwalten",
+    "APPOINTMENTS": "Termine",
+    "APPOINTMENT": "Termin",
+    "LISTLABEL": "Listenansicht",
+    "CALENDARLABEL": "Kalenderansicht",
+    "LIST_ICON": "Listensymbol",
+    "CALENDAR_ICON": "Kalender-Symbol",
+    "APPOINTMENT_LABEL": " {{value}} Termine",
+    "SORT_ENDING_LABEL": "Sortiert {{ value }} Ende",
+    "SORT_BY_NAME": "Nach Name sortieren",
+    "SORT_BY_DATE": "Nach Datum sortieren",
+    "BOOKING_TEMPLATE": "Buchungsvorlage",
+    "SETTINGS": "Einstellungen",
+    "SORTING_CLEAR": "Sortierung übersichtlich",
+    "AVATAR_ICON": "Avatar Symbol",
+    "FAQ_ICON": "FAQ Symbol",
+    "PHONE_ICON": "Telefon Symbol",
+    "COPY_ICON": "Kopier Symbol",
+    "LINK_ICON": "Link Symbol",
+    "GOOGLE_CALENDAR_ICON": "Google Kalender Symbol",
+    "DATE_ICON": "Datums Symbol",
+    "LIST": {
+      "NAME": "Name",
+      "PRODUCT": "Produkt",
+      "DATE": "Datum",
+      "TIME": "Zeit",
+      "BOOKINGTYPE": "Buchungstyp",
+      "JOIN_MEETING": "Am Treffen teilnehmen"
+    },
+    "TABLEACTIONS": {
+      "VIEW": "Sicht",
+      "JOINLABEL": "Am Treffen teilnehmen"
+    },
+    "DETAILS": {
+      "PHONE": "Telefon",
+      "ZOOM": "Zoom-Link",
+      "APPOINTMENT_DETAILS": "Termindetails",
+      "PRODUCT_NAME": "Produktname",
+      "CANCEL": "Stornieren",
+      "CLIENT_NOTES": "Notizen vom Kunden",
+      "PHONE_NUMBER": "Telefonnummer",
+      "COPY_NUMBER": "Nummer kopieren",
+      "COPY_LINK": "Link kopieren",
+      "ZOOM_LINK": "Zoom-Link",
+      "EMAIL_LINK_CLIENT": "E-Mail-Link an den Kunden",
+      "OTHER_CALENDARS": "Andere Kalender",
+      "ADD_TO_GOOGLE_CALENDAR": "Zu Google Kalender hinzufügen",
+      "DOWNLOAD_ICS_FILE": "Laden Sie die ICS-Datei herunter",
+      "LOREM_SAMPLE_TEXT": "Lorem ipsum dolor sit amet consectetur. ",
+      "DELETE_APPOINTMENTS": "Termin löschen",
+      "CONFIRM_DELETE_APPOINTMENT": "Sind Sie sicher, dass Sie diesen Termin löschen möchten?",
+      "KEEP_THE_APPOINTMENTS": "Halten Sie den Termin ein",
+      "MEETING_CANCELLED": "Treffen abgesagt",
+      "COPIED_SUCCESS_MESSAGE": "Erfolgreich kopiert"
+    },
+    "MANAGE": {
+      "MANAGE_SCHEDULE": "Zeitplan verwalten",
+      "TIME_ZONE": "Zeitzone",
+      "SET_WEEKLY_HOURS": "Legen Sie wöchentliche Stunden fest",
+      "DATE_OVERRIDES": "Datumsüberschreibungen",
+      "ADD_DATE_OVERRIDES": "Datumsüberschreibung hinzufügen",
+      "SYNC_WITH_YOUR_CALENDAR": "Synchronisieren Sie mit Ihrem Kalender",
+      "HOURS_AVAILABLE_TEXT": "Zu welchen Zeiten sind Sie erreichbar?",
+      "SAVE": "Speichern",
+      "CANCEL": "Stornieren",
+      "SAVE_CHANGES": "Änderungen speichern",
+      "OVERLAP_ERROR": "Zeiten überschneiden sich mit anderen Zeiten.",
+      "START_ERROR": "Wählen Sie eine Endzeit, die später als die Startzeit liegt.",
+      "UNAVAILABLE": "Nicht verfügbar"
+    }
+  },
+  "BOOKS": {
+    "DETAILS": {
+      "AUTHORS": "Autoren:",
+      "PUBLISHED": "Veröffentlicht:",
+      "LANGUAGE": "Sprache:"
+    },
+    "SEARCH": {
+      "PLACEHOLDER": "Finden Sie ein Buch"
+    },
+    "COLLECTION": {
+      "SHOW_DETAILS": "Details anzeigen"
+    }
+  },
+  "FEATURES": {
+    "LOGOUT": {
+      "TITLE": "Ausloggen",
+      "CANCEL": "Stornieren",
+      "DESCRIPTION": "Sind Sie sicher, dass Sie sich abmelden möchten?",
+      "OK": "OK"
+    },
+    "SIDENAV": {
+      "MY_COLLECTION": "Meine Sammlung",
+      "BROWSE_BOOKS": "Bücher durchsuchen",
+      "SIGN_IN": "Anmelden",
+      "SIGN_OUT": "Abmelden"
+    }
+  },
+  "BOOKING": {
+    "PROFILE_PIC": "Profilbild"
+  },
+  "CALENDAR": {
+    "CALENDAR": "Kalender",
+    "PREVIOUS_MONTH": "Vorheriger Monat",
+    "NEXT_MONTH": "Nächsten Monat",
+    "DAYS_OF_WEEK_SHORT": {
+      "MONDAY": "Mo",
+      "TUESDAY": "Di",
+      "WEDNESDAY": "Wir",
+      "THURSDAY": "Th",
+      "FRIDAY": "Fr",
+      "SATURDAY": "Sa",
+      "SUNDAY": "Su"
+    },
+    "DAYS_OF_WEEK": {
+      "MONDAY": "Montag",
+      "TUESDAY": "Dienstag",
+      "WEDNESDAY": "Mittwoch",
+      "THURSDAY": "Donnerstag",
+      "FRIDAY": "Freitag",
+      "SATURDAY": "Samstag",
+      "SUNDAY": "Sonntag"
+    }
+  },
+  "DEFAULT_BOOKING_TIME": {
+    "FIFTEEN_MINUTES": "15 Minuten",
+    "THIRTY_MINUTES": "30 Minuten",
+    "FORTY_FIVE_MINUTES": "45 Minuten",
+    "SIXTY_MINUTES": "60 Minuten",
+    "NINETY_MINUTES": "90 Minuten",
+    "ONE_HUNDRED_TWENTY_MINUTES": "120 Minuten"
+  }
+}

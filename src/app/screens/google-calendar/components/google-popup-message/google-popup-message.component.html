@@ -1,0 +1,37 @@
+<div
+  class="overflow-hidden"
+  *ngLet="isVendorConnectFailed$ | async as isVendorConnectFailed"
+  class="bg-white shadow-sm px-4 pb-4 h-screen flex justify-center items-center flex-col"
+>
+  <ng-container *ngIf="isVendorConnectFailed; else successMessage">
+    <ds-icon [name]="icons.Clear" [color]="iconColors.Danger300" [size]="70"></ds-icon>
+    <h3
+      *ngIf="vendorAppointmentAdditionMessage$ | async as vendorAppointmentAdditionMessage"
+      class="text-neutral-n500 font-medium mt-5 break-words w-full text-center"
+    >
+      {{ vendorAppointmentAdditionMessage }}
+    </h3>
+
+    <ds-message class="bg-white shadow-sm px-4 pb-4 mt-6" [type]="messageType.error">
+      <h5>
+        {{ 'GOOGLE.CLOSE_POPUP_MESSAGE' | translate }}
+      </h5>
+    </ds-message>
+  </ng-container>
+
+  <ng-template #successMessage>
+    <ds-icon [name]="icons.Checkmark" [color]="iconColors.Success300" [size]="70"></ds-icon>
+    <h3
+      *ngIf="vendorAppointmentAdditionMessage$ | async as vendorAppointmentAdditionMessage"
+      class="text-neutral-n500 font-medium mt-5 break-words w-full text-center"
+    >
+      {{ vendorAppointmentAdditionMessage }}
+    </h3>
+
+    <ds-message class="bg-white shadow-sm px-4 pb-4 mt-6" [type]="messageType.success">
+      <h5>
+        {{ 'GOOGLE.CLOSE_POPUP_MESSAGE_SUCCESS' | translate }}
+      </h5>
+    </ds-message>
+  </ng-template>
+</div>

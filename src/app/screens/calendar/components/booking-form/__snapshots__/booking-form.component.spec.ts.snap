@@ -1,0 +1,403 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BookingFormComponent should compile 1`] = `
+<ds-booking-form
+  _document={[Function Document]}
+  error$={[Function _Store]}
+  fb={[Function _FormBuilder]}
+  form={[Function FormGroup]}
+  isMobileView$={[Function _Store]}
+  leftCountComments$={[Function BehaviorSubject]}
+  leftCountName$={[Function BehaviorSubject]}
+  meetingType$={[Function _Store]}
+  meetingTypeIds={[Function Object]}
+  ngAfterContentChecked$={[Function Subject]}
+  ngAfterContentInit$={[Function Subject]}
+  ngAfterViewChecked$={[Function Subject]}
+  ngAfterViewInit$={[Function Subject]}
+  ngDoCheck$={[Function Subject]}
+  ngOnChanges$={[Function Subject]}
+  ngOnDestroy$={[Function Subject]}
+  ngOnInit$={[Function Subject]}
+  saveBookingPending$={[Function _Store]}
+  spinnerColor={[Function String]}
+  store={[Function _MockStore]}
+>
+  <div>
+    <h4
+      class="font-medium"
+    >
+    </h4>
+    <form
+      novalidate=""
+    >
+      <ds-input-wrapper
+        class="mt-2 text-left"
+      >
+        <div
+          class="flex flex-col"
+        >
+          <ds-form-label-wrapper
+            class="truncate"
+            data-test-input-label=""
+          >
+            <label>
+              <ds-form-label>
+              </ds-form-label>
+            </label>
+          </ds-form-label-wrapper>
+          <div
+            class="flex items-center"
+          >
+          </div>
+        </div>
+      </ds-input-wrapper>
+      <div
+        class="w-full text-left"
+      >
+      </div>
+      <ds-input-wrapper
+        class="mt-2 text-left"
+      >
+        <div
+          class="flex flex-col"
+        >
+          <ds-form-label-wrapper
+            class="truncate"
+            data-test-input-label=""
+          >
+            <label>
+              <ds-form-label>
+              </ds-form-label>
+            </label>
+          </ds-form-label-wrapper>
+          <div
+            class="flex items-center"
+          >
+          </div>
+        </div>
+      </ds-input-wrapper>
+      <div
+        class="w-full text-left"
+      >
+      </div>
+      <div
+        class="w-full text-left"
+      >
+      </div>
+      <ds-textarea
+        class="mt-4 text-left"
+      >
+        <div
+          class="flex flex-col"
+        >
+          <ds-form-label-wrapper
+            class="truncate"
+            data-test-textarea-label=""
+          >
+            <label>
+              <ds-form-label>
+              </ds-form-label>
+            </label>
+          </ds-form-label-wrapper>
+          <textarea
+            class="h-[150px]"
+            dsinput=""
+            formcontrolname="note"
+            type="_type"
+          />
+        </div>
+      </ds-textarea>
+      <div
+        class="w-full text-left"
+      >
+      </div>
+      <div
+        class="mt-5"
+      >
+        <button
+          class="w-full h-10 py-2 px-4 bg-primary-p300-main text-neutral-n0 shadow-shadow-z200 text-center"
+          type="submit"
+        >
+        </button>
+      </div>
+      <div
+        class="w-full text-center mt-5"
+      >
+      </div>
+    </form>
+    <div
+      class="flex flex-row justify-center"
+    >
+    </div>
+  </div>
+</ds-booking-form>
+`;
+
+exports[`BookingFormComponent should disable the form if pending 1`] = `
+<ds-booking-form
+  _document={[Function Document]}
+  error$={[Function _Store]}
+  fb={[Function _FormBuilder]}
+  form={[Function FormGroup]}
+  isMobileView$={[Function _Store]}
+  leftCountComments$={[Function BehaviorSubject]}
+  leftCountName$={[Function BehaviorSubject]}
+  meetingType$={[Function _Store]}
+  meetingTypeIds={[Function Object]}
+  ngAfterContentChecked$={[Function Subject]}
+  ngAfterContentInit$={[Function Subject]}
+  ngAfterViewChecked$={[Function Subject]}
+  ngAfterViewInit$={[Function Subject]}
+  ngDoCheck$={[Function Subject]}
+  ngOnChanges$={[Function Subject]}
+  ngOnDestroy$={[Function Subject]}
+  ngOnInit$={[Function Subject]}
+  saveBookingPending$={[Function _Store]}
+  spinnerColor={[Function String]}
+  store={[Function _MockStore]}
+>
+  <div>
+    <h4
+      class="font-medium"
+    >
+    </h4>
+    <form
+      novalidate=""
+    >
+      <ds-input-wrapper
+        class="mt-2 text-left"
+      >
+        <div
+          class="flex flex-col"
+        >
+          <ds-form-label-wrapper
+            class="truncate"
+            data-test-input-label=""
+          >
+            <label>
+              <ds-form-label>
+              </ds-form-label>
+            </label>
+          </ds-form-label-wrapper>
+          <div
+            class="flex items-center"
+          >
+          </div>
+        </div>
+      </ds-input-wrapper>
+      <div
+        class="w-full text-left"
+      >
+      </div>
+      <ds-input-wrapper
+        class="mt-2 text-left"
+      >
+        <div
+          class="flex flex-col"
+        >
+          <ds-form-label-wrapper
+            class="truncate"
+            data-test-input-label=""
+          >
+            <label>
+              <ds-form-label>
+              </ds-form-label>
+            </label>
+          </ds-form-label-wrapper>
+          <div
+            class="flex items-center"
+          >
+          </div>
+        </div>
+      </ds-input-wrapper>
+      <div
+        class="w-full text-left"
+      >
+      </div>
+      <div
+        class="w-full text-left"
+      >
+      </div>
+      <ds-textarea
+        class="mt-4 text-left"
+      >
+        <div
+          class="flex flex-col"
+        >
+          <ds-form-label-wrapper
+            class="truncate"
+            data-test-textarea-label=""
+          >
+            <label>
+              <ds-form-label>
+              </ds-form-label>
+            </label>
+          </ds-form-label-wrapper>
+          <textarea
+            class="h-[150px]"
+            dsinput=""
+            formcontrolname="note"
+            type="_type"
+          />
+        </div>
+      </ds-textarea>
+      <div
+        class="w-full text-left"
+      >
+      </div>
+      <div
+        class="mt-5"
+      >
+        <button
+          class="w-full h-10 py-2 px-4 bg-primary-p300-main text-neutral-n0 shadow-shadow-z200 text-center"
+          type="submit"
+        >
+        </button>
+      </div>
+      <div
+        class="w-full text-center mt-5"
+      >
+      </div>
+    </form>
+    <div
+      class="flex flex-row justify-center"
+    >
+    </div>
+  </div>
+</ds-booking-form>
+`;
+
+exports[`BookingFormComponent should display an error message if provided 1`] = `
+<ds-booking-form
+  _document={[Function Document]}
+  error$={[Function _Store]}
+  fb={[Function _FormBuilder]}
+  form={[Function FormGroup]}
+  isMobileView$={[Function _Store]}
+  leftCountComments$={[Function BehaviorSubject]}
+  leftCountName$={[Function BehaviorSubject]}
+  meetingType$={[Function _Store]}
+  meetingTypeIds={[Function Object]}
+  ngAfterContentChecked$={[Function Subject]}
+  ngAfterContentInit$={[Function Subject]}
+  ngAfterViewChecked$={[Function Subject]}
+  ngAfterViewInit$={[Function Subject]}
+  ngDoCheck$={[Function Subject]}
+  ngOnChanges$={[Function Subject]}
+  ngOnDestroy$={[Function Subject]}
+  ngOnInit$={[Function Subject]}
+  saveBookingPending$={[Function _Store]}
+  spinnerColor={[Function String]}
+  store={[Function _MockStore]}
+>
+  <div>
+    <h4
+      class="font-medium"
+    >
+    </h4>
+    <form
+      novalidate=""
+    >
+      <ds-input-wrapper
+        class="mt-2 text-left"
+      >
+        <div
+          class="flex flex-col"
+        >
+          <ds-form-label-wrapper
+            class="truncate"
+            data-test-input-label=""
+          >
+            <label>
+              <ds-form-label>
+              </ds-form-label>
+            </label>
+          </ds-form-label-wrapper>
+          <div
+            class="flex items-center"
+          >
+          </div>
+        </div>
+      </ds-input-wrapper>
+      <div
+        class="w-full text-left"
+      >
+      </div>
+      <ds-input-wrapper
+        class="mt-2 text-left"
+      >
+        <div
+          class="flex flex-col"
+        >
+          <ds-form-label-wrapper
+            class="truncate"
+            data-test-input-label=""
+          >
+            <label>
+              <ds-form-label>
+              </ds-form-label>
+            </label>
+          </ds-form-label-wrapper>
+          <div
+            class="flex items-center"
+          >
+          </div>
+        </div>
+      </ds-input-wrapper>
+      <div
+        class="w-full text-left"
+      >
+      </div>
+      <div
+        class="w-full text-left"
+      >
+      </div>
+      <ds-textarea
+        class="mt-4 text-left"
+      >
+        <div
+          class="flex flex-col"
+        >
+          <ds-form-label-wrapper
+            class="truncate"
+            data-test-textarea-label=""
+          >
+            <label>
+              <ds-form-label>
+              </ds-form-label>
+            </label>
+          </ds-form-label-wrapper>
+          <textarea
+            class="h-[150px]"
+            dsinput=""
+            formcontrolname="note"
+            type="_type"
+          />
+        </div>
+      </ds-textarea>
+      <div
+        class="w-full text-left"
+      >
+      </div>
+      <div
+        class="mt-5"
+      >
+        <button
+          class="w-full h-10 py-2 px-4 bg-primary-p300-main text-neutral-n0 shadow-shadow-z200 text-center"
+          type="submit"
+        >
+        </button>
+      </div>
+      <div
+        class="w-full text-center mt-5"
+      >
+      </div>
+    </form>
+    <div
+      class="flex flex-row justify-center"
+    >
+    </div>
+  </div>
+</ds-booking-form>
+`;

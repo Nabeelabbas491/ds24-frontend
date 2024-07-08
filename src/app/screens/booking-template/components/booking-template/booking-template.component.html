@@ -1,0 +1,137 @@
+<div
+  *ngLet="bookingTemplateList$ | async as bookingTemplateList"
+  class="max-w-[80vw] m-auto border-t border-neutral-n200"
+>
+  <div class="flex justify-between items-center my-3 mb-2">
+    <h3 class="font-medium text-2xl pt-3">{{ 'VENDOR.BOOKING.TITLE' | translate }}</h3>
+
+    <button class="flex items-center" dsButton="primary" (click)="openBookingModal()">
+      <ds-icon class="mx-3 cursor-pointer" *ngIf="icon" [name]="icon" [size]="10" [color]="whiteIconColor"></ds-icon>
+      {{ 'VENDOR.BOOKING.ADD_BOOKING_TITLE' | translate }}
+    </button>
+  </div>
+
+  <ng-container *ngIf="(bookingTemplateList?.bookingTemplates)!.length === 0; else list">
+    <div class="py-24 flex justify-center items-center">
+      <div class="w-fit flex flex-col">
+        <p class="text-2xl pb-6 text-neutral-n500">{{ 'VENDOR.BOOKING.CREATE_TITLE' | translate }}</p>
+
+        <p class="pb-6 text-lg max-w-sm min-w-sm breaks-words text-neutral-n400">
+          {{ 'VENDOR.BOOKING.LANDING_PAGE_ACTION_TEXT' | translate }}
+        </p>
+        <ds-spinner [color]="spinnerColor" *ngIf="isBookingTemplateCollectionPending$ | async" [size]="30"></ds-spinner>
+
+        <button dsButton="primary" class="max-w-fit" (click)="openBookingModal()">
+          {{ 'VENDOR.BOOKING.LANDING_PAGE_ACTION_BUTTON_TEXT' | translate }}
+        </button>
+      </div>
+
+      <div class="w-[30%]">
+        <img
+          src="../../../../../assets/images/blank-state-upload-video.svg"
+          alt="{{ 'VENDOR.BOOKING.LANDING_IMG' | translate }}"
+        />
+      </div>
+    </div>
+  </ng-container>
+
+  <ng-template #list>
+    <div class="flex justify-between flex-wrap">
+      <div
+        class="w-[49%] border border-solid border-neutral-300 bg-white pr-5 p-4 my-3"
+        *ngFor="let template of bookingTemplateList?.bookingTemplates; let i = index"
+      >
+        <div class="flex justify-between pb-3">
+          <p
+            class="font-medium text-xl truncate max-w-xs"
+            [matTooltip]="template.name"
+            [matTooltipPosition]="'below'"
+            matTooltipClass="bg-neutral-n500 text-xs text-neutral-50 rounded-md"
+          >
+            {{ template.name }}
+          </p>
+          <div class="flex gap-6">
+            <button
+              class="text-primary-p400 cursor-pointer font-medium"
+              (click)="openPreviewModal(template.bookingProducts[0].uuid)"
+            >
+              {{ 'VENDOR.BOOKING.PREVIEW' | translate }}
+            </button>
+
+            <button class="text-primary-p400 cursor-pointer font-medium" (click)="openUpdatePanel(template.id)">
+              {{ 'VENDOR.BOOKING.EDIT' | translate }}
+            </button>
+          </div>
+        </div>
+        <div class="flex justify-between">
+          <p>{{ template.duration }} {{ 'VENDOR.BOOKING.MINUTES' | translate }}</p>
+        </div>
+
+        <div>
+          <p class="text-xs leading-5 break-words text-neutral-600 py-2">{{ template.description }}</p>
+        </div>
+        <div>
+          <p class="font-medium text text-neutral-n400 text-base pb-3">
+            {{ 'VENDOR.BOOKING.BOOKING_TYPES' | translate }}
+            <ng-container *ngFor="let meetingType of template.bookingMeetingTypes; let isLast = last"
+              >{{ 'BOOKING.CALL_TYPE.CALL_TYPE_SHORT.' + meetingType.id | translate
+              }}<span *ngIf="!isLast">, </span></ng-container
+            >
+          </p>
+        </div>
+
+        <div class="flex justify-between items-center p-3 bg-primary-p50">
+          <p
+            *ngIf="template.bookingProducts.length > 0"
+            [matTooltip]="template.bookingProducts[0].name"
+            [matTooltipPosition]="'below'"
+            matTooltipClass="bg-neutral-n500 text-xs text-neutral-50 rounded-md"
+            class="text-primary-p400 cursor-pointer font-medium text-base max-w-xs truncate"
+          >
+            {{ template.bookingProducts[0].name }}
+            <span *ngIf="template.bookingProducts && template.bookingProducts.length > 1">
+              + {{ template.bookingProducts.length - 1 }} {{ 'VENDOR.BOOKING.OTHERS' | translate }}</span
+            >
+          </p>
+
+          <button (click)="openUpdatePanel(template.id)">
+            <ds-icon class="mx-2" *ngIf="icon" [name]="icon" [size]="12" [color]="darkIconColor"></ds-icon>
+
+            <span class="font-medium text text-neutral-n400 text-base">{{
+              'VENDOR.BOOKING.CONNECT_PRODUCT' | translate
+            }}</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+
+  <div class="flex justify-center pt-6" *ngIf="bookingTemplateList && (bookingTemplateList | showPagination)">
+    <ds-pagination
+      [pageSize]="bookingTemplateList.limit"
+      [length]="bookingTemplateList.total"
+      [page]="bookingTemplateList.page"
+      (pageChange)="pageChange($event, bookingTemplateList)"
+    ></ds-pagination>
+  </div>
+</div>
+<ds-booking-template-modal
+  *ngIf="bookingTemplateFormCollection$ | async"
+  [bookingTemplateFormCollection]="bookingTemplateFormCollection$ | async"
+  (closeTemplatePanel)="closeBookingTemplateModal($event)"
+></ds-booking-template-modal>
+
+<ds-template-preview-modal
+  [bookingTemplate]="bookingTemplatePreviewSuccess$ | async"
+  (closePreviewPanel)="closePreviewModal()"
+></ds-template-preview-modal>
+
+<div class="max-w-[80vw] flex justify-center items-center h-96 mx-auto pl-6">
+  <ds-spinner [color]="spinnerColor" *ngIf="isBookingTemplateCollectionPending$ | async" [size]="30"></ds-spinner>
+
+  <ds-spinner [color]="spinnerColor" class="mx-auto pl-6" *ngIf="isBookingTemplateListPending$ | async" [size]="50">
+  </ds-spinner>
+
+  <ds-spinner [color]="spinnerColor" class="mx-auto pl-6" *ngIf="isBookingTemplatePreviewPending$ | async" [size]="30">
+  </ds-spinner>
+</div>

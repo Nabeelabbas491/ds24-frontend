@@ -1,0 +1,47 @@
+<div>
+  <div [formGroup]="timeRangeGroup" *ngIf="timeRangeGroup" class="flex">
+    <div class="flex flex-col">
+      <div class="flex w-full mt-1">
+        <div>
+          <input
+            [ngClass]="
+              timeRangeGroup.hasError('overlap') || timeRangeGroup.hasError('isStartMore')
+                ? 'border border-solid border-danger-e300 focus:!border-danger-e300'
+                : '!border-neutral-300 border cursor-text'
+            "
+            class="w-full py-2 px-4 text-text-style-dark-high-emphasis text-base rounded-xs shadow-shadow-z100 h-10 placeholder-text-style-dark-low-emphasis focus-within:border-primary-p300-main focus:outline-none disabled:bg-neutral-n100 disabled:!shadow-none"
+            formControlName="from"
+            type="time"
+            data-test="vendor-phone"
+            (change)="changeOfInputValues()"
+          />
+        </div>
+
+        <span class="mx-3 mt-2"> - </span>
+
+        <div>
+          <input
+            class="w-full py-2 px-4 text-text-style-dark-high-emphasis text-base rounded-xs shadow-shadow-z100 h-10 placeholder-text-style-dark-low-emphasis focus-within:border-primary-p300-main focus:outline-none disabled:bg-neutral-n100 disabled:!shadow-none"
+            [ngClass]="
+              timeRangeGroup.hasError('overlap') || timeRangeGroup.hasError('isStartMore')
+                ? 'border border-solid border-danger-e300 focus:!border-danger-e300'
+                : 'border-neutral-300 border cursor-text'
+            "
+            formControlName="to"
+            type="time"
+            data-test="vendor-phone"
+            (change)="changeOfInputValues()"
+          />
+        </div>
+
+        <ng-content></ng-content>
+      </div>
+      <div class="mb-1 mt-1" *ngIf="timeRangeGroup.hasError('overlap')">
+        <ds-form-error> {{ 'VENDOR.MANAGE.OVERLAP_ERROR' | translate }} </ds-form-error>
+      </div>
+      <div class="mb-1 mt-1" *ngIf="timeRangeGroup.hasError('isStartMore')">
+        <ds-form-error> {{ 'VENDOR.MANAGE.START_ERROR' | translate }} </ds-form-error>
+      </div>
+    </div>
+  </div>
+</div>

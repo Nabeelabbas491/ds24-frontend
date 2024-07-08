@@ -1,0 +1,44 @@
+<form [formGroup]="dayForm" *ngIf="dayForm">
+  <div class="flex justify-between items-start p-4 border-solid border-b-2 border-gray-200 hover:bg-neutral-n100">
+    <div
+      class="flex justify-between"
+      [ngClass]="getTimeRangeArrayControls.length > 1 ? 'items-start' : 'iterms-center'"
+    >
+      <div class="flex items-center w-16">
+        <ds-checkbox (change)="changeDaySelection($event)" formControlName="selected">
+          <ds-form-label> {{ getDayName }} </ds-form-label>
+        </ds-checkbox>
+      </div>
+
+      <div class="flex flex-col" *ngIf="dayForm?.get('unavailable')?.value === false" formArrayName="timeRange">
+        <div class="flex" *ngFor="let time of getTimeRangeArrayControls; let timeRangeIndex = index">
+          <ds-time-range
+            class="ml-12"
+            [timeRangeIndex]="timeRangeIndex"
+            [timeRangeGroup]="getTimeRangeGroup(timeRangeIndex)"
+            [timeRangeArray]="getTimeRangeArray"
+          >
+            <button>
+              <ds-icon
+                class="ml-5 mt-3 cursor-pointer"
+                *ngIf="icon"
+                [name]="trash"
+                [size]="20"
+                [color]="iconColor"
+                (click)="removeTimeRange(timeRangeIndex)"
+              ></ds-icon>
+            </button>
+          </ds-time-range>
+        </div>
+      </div>
+
+      <p *ngIf="dayForm?.get('unavailable')?.value" class="mt-2 ml-12 text-gray-400 text-base">
+        {{ 'VENDOR.MANAGE.UNAVAILABLE' | translate }}
+      </p>
+    </div>
+
+    <button class="mt-3" (click)="pushTimeRange()" (keypress)="pushTimeRange()">
+      <ds-icon class="mr-2 cursor-pointer" *ngIf="icon" [name]="icon" [size]="20" [color]="iconColor"></ds-icon>
+    </button>
+  </div>
+</form>
